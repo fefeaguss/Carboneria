@@ -6,4 +6,8 @@
     Private Sub btnClientes_Click(sender As Object, e As EventArgs) Handles btnClientes.Click
         frmClientes.ShowDialog()
     End Sub
+
+    Private Sub btnProveedores_Click(sender As Object, e As EventArgs) Handles btnProveedores.Click
+        frmProveedores.ShowDialog()
+    End Sub
 End Class
