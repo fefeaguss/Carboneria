@@ -25,7 +25,7 @@
 
         HabilitarDeshabilitarControles(Me, True)
         Me.btnListo.Visible = True
-        Me.txtNombre_Cliente.Focus()
+        Me.txtNombre_Proveedor.Focus()
 
     End Sub
 
@@ -36,13 +36,13 @@
 
         ' Armamos el SQL sin id_cliente porque es identity
         Dim sql As String = "INSERT INTO Proveedor (nombre, cuit, telefono, direccion) " &
-                            "VALUES ('" & Me.txtNombre_Cliente.Text & "', '" & Me.txtCuit.Text & "', '" &
+                            "VALUES ('" & Me.txtNombre_Proveedor.Text & "', '" & Me.txtCuit.Text & "', '" &
                             Me.txtTelefono.Text & "', '" & Me.txtDireccion.Text & "')"
 
         cmd.CommandText = sql
 
         ' Validaciones
-        If Me.txtNombre_Cliente.Text <> "" Then
+        If Me.txtNombre_Proveedor.Text <> "" Then
             If Me.txtCuit.Text <> "" Then
                 If Me.txtTelefono.Text <> "" Then
                     If Me.txtDireccion.Text <> "" Then
@@ -51,7 +51,7 @@
                             llenarProveedor()
 
                             ' Limpiar campos
-                            Me.txtNombre_Cliente.Clear()
+                            Me.txtNombre_Proveedor.Clear()
                             Me.txtCuit.Clear()
                             Me.txtTelefono.Clear()
                             Me.txtDireccion.Clear()
@@ -70,20 +70,20 @@
             End If
         Else
             MsgBox("El campo NOMBRE Y APELLIDO no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-            Me.txtNombre_Cliente.Focus()
+            Me.txtNombre_Proveedor.Focus()
         End If
     End Sub
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         flag_abm = 2
         wcp = Me.dgvProveedor.CurrentRow.Cells(0).Value
-        Me.txtNombre_Cliente.Text = Me.dgvProveedor.CurrentRow.Cells(1).Value.ToString
+        Me.txtNombre_Proveedor.Text = Me.dgvProveedor.CurrentRow.Cells(1).Value.ToString
         Me.txtCuit.Text = Me.dgvProveedor.CurrentRow.Cells(2).Value.ToString
         Me.txtTelefono.Text = Me.dgvProveedor.CurrentRow.Cells(3).Value.ToString
         Me.txtDireccion.Text = Me.dgvProveedor.CurrentRow.Cells(4).Value.ToString
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
-        Me.txtNombre_Cliente.Focus()
+        Me.txtNombre_Proveedor.Focus()
     End Sub
 
 
@@ -95,7 +95,7 @@
 
         ' Armamos el SQL con los campos correctos
         Dim sql As String = "UPDATE Proveedor SET " &
-                        "nombre = '" & Me.txtNombre_Cliente.Text & "', " &
+                        "nombre = '" & Me.txtNombre_Proveedor.Text & "', " &
                         "cuit = '" & Me.txtCuit.Text & "', " &
                         "telefono = '" & Me.txtTelefono.Text & "', " &
                         "direccion = '" & Me.txtDireccion.Text & "' " &
@@ -105,7 +105,7 @@
 
         ' Validaciones
 
-        If Me.txtNombre_Cliente.Text <> "" Then
+        If Me.txtNombre_Proveedor.Text <> "" Then
             If Me.txtCuit.Text <> "" Then
                 If Me.txtTelefono.Text <> "" Then
                     If Me.txtDireccion.Text <> "" Then
@@ -115,7 +115,7 @@
 
                             ' Reset de campos
 
-                            Me.txtNombre_Cliente.Clear()
+                            Me.txtNombre_Proveedor.Clear()
                             Me.txtCuit.Clear()
                             Me.txtTelefono.Clear()
                             Me.txtDireccion.Clear()
@@ -134,7 +134,7 @@
             End If
         Else
             MsgBox("El campo NOMBRE Y APELLIDO no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-            Me.txtNombre_Cliente.Focus()
+            Me.txtNombre_Proveedor.Focus()
         End If
 
     End Sub
@@ -144,13 +144,13 @@
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         flag_abm = 3
         wcp = Me.dgvProveedor.CurrentRow.Cells(0).Value
-        Me.txtNombre_Cliente.Text = Me.dgvProveedor.CurrentRow.Cells(1).Value.ToString
+        Me.txtNombre_Proveedor.Text = Me.dgvProveedor.CurrentRow.Cells(1).Value.ToString
         Me.txtCuit.Text = Me.dgvProveedor.CurrentRow.Cells(2).Value.ToString
         Me.txtTelefono.Text = Me.dgvProveedor.CurrentRow.Cells(3).Value.ToString
         Me.txtDireccion.Text = Me.dgvProveedor.CurrentRow.Cells(4).Value.ToString
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
-        Me.txtNombre_Cliente.Focus()
+        Me.txtNombre_Proveedor.Focus()
     End Sub
 
 
@@ -165,7 +165,7 @@
             cmd.ExecuteNonQuery()
 
             llenarProveedor()
-            Me.txtNombre_Cliente.Clear()
+            Me.txtNombre_Proveedor.Clear()
             Me.txtCuit.Clear()
             Me.txtTelefono.Clear()
             Me.txtDireccion.Clear()
@@ -185,5 +185,9 @@
         End If
 
         HabilitarDeshabilitarControles(Me, False)
+    End Sub
+
+    Private Sub btnCerrar_Click(sender As Object, e As EventArgs) Handles btnCerrar.Click
+        Me.Close()
     End Sub
 End Class

@@ -87,6 +87,12 @@
     <Compile Include="frmClientes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmListaPrecios.Designer.vb">
+      <DependentUpon>frmListaPrecios.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmListaPrecios.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMenu.Designer.vb">
       <DependentUpon>frmMenu.vb</DependentUpon>
     </Compile>
@@ -97,6 +103,18 @@
       <DependentUpon>frmProveedores.vb</DependentUpon>
     </Compile>
     <Compile Include="frmProveedores.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStockCarbon.Designer.vb">
+      <DependentUpon>frmStockCarbon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStockCarbon.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frnProductos.Designer.vb">
+      <DependentUpon>frnProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frnProductos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -124,11 +142,20 @@
     <EmbeddedResource Include="frmClientes.resx">
       <DependentUpon>frmClientes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmListaPrecios.resx">
+      <DependentUpon>frmListaPrecios.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProveedores.resx">
       <DependentUpon>frmProveedores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStockCarbon.resx">
+      <DependentUpon>frmStockCarbon.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frnProductos.resx">
+      <DependentUpon>frnProductos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

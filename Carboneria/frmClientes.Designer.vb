@@ -36,6 +36,7 @@ Partial Class frmClientes
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtNombre_Cliente = New System.Windows.Forms.TextBox()
         Me.dgvClientes = New System.Windows.Forms.DataGridView()
+        Me.btnCerrar = New System.Windows.Forms.Button()
         CType(Me.btnModificar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnEliminar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnAgregar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,10 +46,10 @@ Partial Class frmClientes
         '
         'btnModificar
         '
-        Me.btnModificar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnModificar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnModificar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnModificar.Image = CType(resources.GetObject("btnModificar.Image"), System.Drawing.Image)
-        Me.btnModificar.Location = New System.Drawing.Point(1089, 166)
+        Me.btnModificar.Location = New System.Drawing.Point(669, 202)
         Me.btnModificar.Name = "btnModificar"
         Me.btnModificar.Size = New System.Drawing.Size(54, 47)
         Me.btnModificar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -57,10 +58,10 @@ Partial Class frmClientes
         '
         'btnEliminar
         '
-        Me.btnEliminar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEliminar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnEliminar.Image = CType(resources.GetObject("btnEliminar.Image"), System.Drawing.Image)
-        Me.btnEliminar.Location = New System.Drawing.Point(1086, 221)
+        Me.btnEliminar.Location = New System.Drawing.Point(741, 202)
         Me.btnEliminar.Name = "btnEliminar"
         Me.btnEliminar.Size = New System.Drawing.Size(56, 47)
         Me.btnEliminar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -69,10 +70,10 @@ Partial Class frmClientes
         '
         'btnAgregar
         '
-        Me.btnAgregar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAgregar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnAgregar.Image = CType(resources.GetObject("btnAgregar.Image"), System.Drawing.Image)
-        Me.btnAgregar.Location = New System.Drawing.Point(1089, 111)
+        Me.btnAgregar.Location = New System.Drawing.Point(595, 202)
         Me.btnAgregar.Name = "btnAgregar"
         Me.btnAgregar.Size = New System.Drawing.Size(55, 47)
         Me.btnAgregar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -81,10 +82,9 @@ Partial Class frmClientes
         '
         'btnListo
         '
-        Me.btnListo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnListo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnListo.Image = CType(resources.GetObject("btnListo.Image"), System.Drawing.Image)
-        Me.btnListo.Location = New System.Drawing.Point(510, 455)
+        Me.btnListo.Location = New System.Drawing.Point(389, 122)
         Me.btnListo.Name = "btnListo"
         Me.btnListo.Size = New System.Drawing.Size(116, 27)
         Me.btnListo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -94,12 +94,11 @@ Partial Class frmClientes
         '
         'Label1
         '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(76, 446)
+        Me.Label1.Location = New System.Drawing.Point(12, 113)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(72, 13)
         Me.Label1.TabIndex = 85
@@ -107,12 +106,11 @@ Partial Class frmClientes
         '
         'Label6
         '
-        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(330, 399)
+        Me.Label6.Location = New System.Drawing.Point(209, 66)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(36, 13)
         Me.Label6.TabIndex = 79
@@ -120,21 +118,19 @@ Partial Class frmClientes
         '
         'txtCuit
         '
-        Me.txtCuit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtCuit.Enabled = False
-        Me.txtCuit.Location = New System.Drawing.Point(333, 415)
+        Me.txtCuit.Location = New System.Drawing.Point(212, 82)
         Me.txtCuit.Name = "txtCuit"
         Me.txtCuit.Size = New System.Drawing.Size(147, 20)
         Me.txtCuit.TabIndex = 78
         '
         'Label4
         '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.Transparent
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(331, 445)
+        Me.Label4.Location = New System.Drawing.Point(210, 112)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(75, 13)
         Me.Label4.TabIndex = 77
@@ -142,30 +138,27 @@ Partial Class frmClientes
         '
         'txtTelefono
         '
-        Me.txtTelefono.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtTelefono.Enabled = False
-        Me.txtTelefono.Location = New System.Drawing.Point(78, 462)
+        Me.txtTelefono.Location = New System.Drawing.Point(14, 129)
         Me.txtTelefono.Name = "txtTelefono"
         Me.txtTelefono.Size = New System.Drawing.Size(155, 20)
         Me.txtTelefono.TabIndex = 76
         '
         'txtDireccion
         '
-        Me.txtDireccion.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtDireccion.Enabled = False
-        Me.txtDireccion.Location = New System.Drawing.Point(333, 462)
+        Me.txtDireccion.Location = New System.Drawing.Point(212, 129)
         Me.txtDireccion.Name = "txtDireccion"
         Me.txtDireccion.Size = New System.Drawing.Size(155, 20)
         Me.txtDireccion.TabIndex = 75
         '
         'Label3
         '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(76, 399)
+        Me.Label3.Location = New System.Drawing.Point(12, 66)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(136, 13)
         Me.Label3.TabIndex = 74
@@ -173,9 +166,8 @@ Partial Class frmClientes
         '
         'txtNombre_Cliente
         '
-        Me.txtNombre_Cliente.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtNombre_Cliente.Enabled = False
-        Me.txtNombre_Cliente.Location = New System.Drawing.Point(78, 415)
+        Me.txtNombre_Cliente.Location = New System.Drawing.Point(14, 82)
         Me.txtNombre_Cliente.Name = "txtNombre_Cliente"
         Me.txtNombre_Cliente.Size = New System.Drawing.Size(155, 20)
         Me.txtNombre_Cliente.TabIndex = 73
@@ -192,18 +184,30 @@ Partial Class frmClientes
         Me.dgvClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvClientes.GridColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(124, Byte), Integer), CType(CType(2, Byte), Integer))
-        Me.dgvClientes.Location = New System.Drawing.Point(45, 45)
+        Me.dgvClientes.Location = New System.Drawing.Point(12, 255)
         Me.dgvClientes.Name = "dgvClientes"
         Me.dgvClientes.ReadOnly = True
         Me.dgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvClientes.Size = New System.Drawing.Size(1019, 312)
+        Me.dgvClientes.Size = New System.Drawing.Size(785, 345)
         Me.dgvClientes.TabIndex = 71
+        '
+        'btnCerrar
+        '
+        Me.btnCerrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnCerrar.Location = New System.Drawing.Point(749, 12)
+        Me.btnCerrar.Name = "btnCerrar"
+        Me.btnCerrar.Size = New System.Drawing.Size(48, 34)
+        Me.btnCerrar.TabIndex = 112
+        Me.btnCerrar.Text = "X"
+        Me.btnCerrar.UseVisualStyleBackColor = True
         '
         'frmClientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1212, 636)
+        Me.ClientSize = New System.Drawing.Size(809, 636)
+        Me.Controls.Add(Me.btnCerrar)
         Me.Controls.Add(Me.btnModificar)
         Me.Controls.Add(Me.btnEliminar)
         Me.Controls.Add(Me.btnAgregar)
@@ -217,6 +221,7 @@ Partial Class frmClientes
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtNombre_Cliente)
         Me.Controls.Add(Me.dgvClientes)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "frmClientes"
         Me.Text = "frmClientes"
         CType(Me.btnModificar, System.ComponentModel.ISupportInitialize).EndInit()
@@ -242,4 +247,5 @@ Partial Class frmClientes
     Friend WithEvents Label3 As Label
     Friend WithEvents txtNombre_Cliente As TextBox
     Friend WithEvents dgvClientes As DataGridView
+    Friend WithEvents btnCerrar As Button
 End Class
