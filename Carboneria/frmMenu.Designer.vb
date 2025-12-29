@@ -23,19 +23,21 @@ Partial Class frmMenu
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.btnProductos = New System.Windows.Forms.Button()
         Me.btnCompras = New System.Windows.Forms.Button()
         Me.btnProveedores = New System.Windows.Forms.Button()
         Me.btnClientes = New System.Windows.Forms.Button()
         Me.btnVentas = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.PanelDerecho = New System.Windows.Forms.Panel()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Controls.Add(Me.btnProductos)
         Me.Panel1.Controls.Add(Me.btnCompras)
@@ -47,6 +49,16 @@ Partial Class frmMenu
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(197, 658)
         Me.Panel1.TabIndex = 0
+        '
+        'Button1
+        '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Location = New System.Drawing.Point(0, 315)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(197, 48)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "Lista de Precios"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'btnProductos
         '
@@ -98,16 +110,6 @@ Partial Class frmMenu
         Me.btnVentas.Text = "Ventas"
         Me.btnVentas.UseVisualStyleBackColor = True
         '
-        'Button1
-        '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(0, 315)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(197, 48)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Lista de Precios"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'PanelDerecho
         '
         Me.PanelDerecho.Dock = System.Windows.Forms.DockStyle.Fill
@@ -115,6 +117,16 @@ Partial Class frmMenu
         Me.PanelDerecho.Name = "PanelDerecho"
         Me.PanelDerecho.Size = New System.Drawing.Size(1015, 658)
         Me.PanelDerecho.TabIndex = 1
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Location = New System.Drawing.Point(0, 369)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(197, 48)
+        Me.Button2.TabIndex = 6
+        Me.Button2.Text = "Precio del Producto"
+        Me.Button2.UseVisualStyleBackColor = True
         '
         'frmMenu
         '
@@ -138,4 +150,5 @@ Partial Class frmMenu
     Friend WithEvents btnClientes As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents PanelDerecho As Panel
+    Friend WithEvents Button2 As Button
 End Class

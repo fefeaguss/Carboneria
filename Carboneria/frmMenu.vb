@@ -23,6 +23,10 @@
     End Sub
 
 
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        AbrirFormularioEnPanel(New frmProductoPrecio())
+    End Sub
+
     Private Sub AbrirFormularioEnPanel(formHijo As Form)
         ' Limpiar el panel antes de cargar otro formulario
         If Me.PanelDerecho.Controls.Count > 0 Then
