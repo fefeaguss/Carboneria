@@ -23,22 +23,24 @@ Partial Class frmMenu
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnInsumos = New System.Windows.Forms.Button()
+        Me.btnProductoPrecio = New System.Windows.Forms.Button()
+        Me.btnListaPrecios = New System.Windows.Forms.Button()
         Me.btnProductos = New System.Windows.Forms.Button()
         Me.btnCompras = New System.Windows.Forms.Button()
         Me.btnProveedores = New System.Windows.Forms.Button()
         Me.btnClientes = New System.Windows.Forms.Button()
         Me.btnVentas = New System.Windows.Forms.Button()
         Me.PanelDerecho = New System.Windows.Forms.Panel()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Panel1.Controls.Add(Me.Button2)
-        Me.Panel1.Controls.Add(Me.Button1)
+        Me.Panel1.Controls.Add(Me.btnInsumos)
+        Me.Panel1.Controls.Add(Me.btnProductoPrecio)
+        Me.Panel1.Controls.Add(Me.btnListaPrecios)
         Me.Panel1.Controls.Add(Me.btnProductos)
         Me.Panel1.Controls.Add(Me.btnCompras)
         Me.Panel1.Controls.Add(Me.btnProveedores)
@@ -47,23 +49,43 @@ Partial Class frmMenu
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(197, 658)
+        Me.Panel1.Size = New System.Drawing.Size(197, 778)
         Me.Panel1.TabIndex = 0
         '
-        'Button1
+        'btnInsumos
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(0, 315)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(197, 48)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Lista de Precios"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnInsumos.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnInsumos.Location = New System.Drawing.Point(0, 483)
+        Me.btnInsumos.Name = "btnInsumos"
+        Me.btnInsumos.Size = New System.Drawing.Size(197, 48)
+        Me.btnInsumos.TabIndex = 7
+        Me.btnInsumos.Text = "Insumos"
+        Me.btnInsumos.UseVisualStyleBackColor = True
+        '
+        'btnProductoPrecio
+        '
+        Me.btnProductoPrecio.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnProductoPrecio.Location = New System.Drawing.Point(0, 429)
+        Me.btnProductoPrecio.Name = "btnProductoPrecio"
+        Me.btnProductoPrecio.Size = New System.Drawing.Size(197, 48)
+        Me.btnProductoPrecio.TabIndex = 6
+        Me.btnProductoPrecio.Text = "Precio del Producto"
+        Me.btnProductoPrecio.UseVisualStyleBackColor = True
+        '
+        'btnListaPrecios
+        '
+        Me.btnListaPrecios.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnListaPrecios.Location = New System.Drawing.Point(0, 375)
+        Me.btnListaPrecios.Name = "btnListaPrecios"
+        Me.btnListaPrecios.Size = New System.Drawing.Size(197, 48)
+        Me.btnListaPrecios.TabIndex = 5
+        Me.btnListaPrecios.Text = "Lista de Precios"
+        Me.btnListaPrecios.UseVisualStyleBackColor = True
         '
         'btnProductos
         '
         Me.btnProductos.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnProductos.Location = New System.Drawing.Point(0, 207)
+        Me.btnProductos.Location = New System.Drawing.Point(0, 267)
         Me.btnProductos.Name = "btnProductos"
         Me.btnProductos.Size = New System.Drawing.Size(197, 48)
         Me.btnProductos.TabIndex = 4
@@ -73,7 +95,7 @@ Partial Class frmMenu
         'btnCompras
         '
         Me.btnCompras.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCompras.Location = New System.Drawing.Point(0, 455)
+        Me.btnCompras.Location = New System.Drawing.Point(0, 537)
         Me.btnCompras.Name = "btnCompras"
         Me.btnCompras.Size = New System.Drawing.Size(197, 48)
         Me.btnCompras.TabIndex = 3
@@ -83,7 +105,7 @@ Partial Class frmMenu
         'btnProveedores
         '
         Me.btnProveedores.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnProveedores.Location = New System.Drawing.Point(0, 261)
+        Me.btnProveedores.Location = New System.Drawing.Point(0, 321)
         Me.btnProveedores.Name = "btnProveedores"
         Me.btnProveedores.Size = New System.Drawing.Size(197, 48)
         Me.btnProveedores.TabIndex = 2
@@ -93,7 +115,7 @@ Partial Class frmMenu
         'btnClientes
         '
         Me.btnClientes.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnClientes.Location = New System.Drawing.Point(0, 153)
+        Me.btnClientes.Location = New System.Drawing.Point(0, 213)
         Me.btnClientes.Name = "btnClientes"
         Me.btnClientes.Size = New System.Drawing.Size(197, 48)
         Me.btnClientes.TabIndex = 1
@@ -103,7 +125,7 @@ Partial Class frmMenu
         'btnVentas
         '
         Me.btnVentas.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnVentas.Location = New System.Drawing.Point(0, 509)
+        Me.btnVentas.Location = New System.Drawing.Point(0, 654)
         Me.btnVentas.Name = "btnVentas"
         Me.btnVentas.Size = New System.Drawing.Size(197, 48)
         Me.btnVentas.TabIndex = 0
@@ -115,24 +137,14 @@ Partial Class frmMenu
         Me.PanelDerecho.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelDerecho.Location = New System.Drawing.Point(197, 0)
         Me.PanelDerecho.Name = "PanelDerecho"
-        Me.PanelDerecho.Size = New System.Drawing.Size(1015, 658)
+        Me.PanelDerecho.Size = New System.Drawing.Size(1015, 778)
         Me.PanelDerecho.TabIndex = 1
-        '
-        'Button2
-        '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(0, 369)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(197, 48)
-        Me.Button2.TabIndex = 6
-        Me.Button2.Text = "Precio del Producto"
-        Me.Button2.UseVisualStyleBackColor = True
         '
         'frmMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1212, 658)
+        Me.ClientSize = New System.Drawing.Size(1212, 778)
         Me.Controls.Add(Me.PanelDerecho)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "frmMenu"
@@ -148,7 +160,8 @@ Partial Class frmMenu
     Friend WithEvents btnCompras As Button
     Friend WithEvents btnProveedores As Button
     Friend WithEvents btnClientes As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnListaPrecios As Button
     Friend WithEvents PanelDerecho As Panel
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btnProductoPrecio As Button
+    Friend WithEvents btnInsumos As Button
 End Class

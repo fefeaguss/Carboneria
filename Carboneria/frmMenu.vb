@@ -18,19 +18,31 @@
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnListaPrecios.Click
         AbrirFormularioEnPanel(New frmListaPrecios())
     End Sub
 
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnProductoPrecio.Click
         AbrirFormularioEnPanel(New frmProductoPrecio())
     End Sub
 
+    Private Sub btnInsumos_Click(sender As Object, e As EventArgs) Handles btnInsumos.Click
+        AbrirFormularioEnPanel(New frmInsumos())
+    End Sub
+
+    Private Sub btnCompras_Click(sender As Object, e As EventArgs) Handles btnCompras.Click
+        AbrirFormularioEnPanel(New frmCompras())
+    End Sub
+
     Private Sub AbrirFormularioEnPanel(formHijo As Form)
-        ' Limpiar el panel antes de cargar otro formulario
-        If Me.PanelDerecho.Controls.Count > 0 Then
-            Me.PanelDerecho.Controls.RemoveAt(0)
+        ' Si ya hay un formulario cargado, cerrarlo y liberarlo
+        If Me.PanelDerecho.Controls.Count <= 0 Then
+        Else
+            Dim viejoForm As Form = CType(Me.PanelDerecho.Controls(0), Form)
+            viejoForm.Close()
+            viejoForm.Dispose()
+            Me.PanelDerecho.Controls.Clear()
         End If
 
         ' Configurar el formulario hijo
@@ -41,6 +53,12 @@
         ' Agregarlo al panel
         Me.PanelDerecho.Controls.Add(formHijo)
         Me.PanelDerecho.Tag = formHijo
+
+        ' Cuando se cierre con Me.Close, limpiar el panel
+        AddHandler formHijo.FormClosed, Sub(sender, e)
+                                            Me.PanelDerecho.Controls.Clear()
+                                        End Sub
+
         formHijo.Show()
     End Sub
 

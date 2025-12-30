@@ -73,6 +73,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarboneriaDBDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CarboneriaDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Conexion.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -85,6 +90,18 @@
       <DependentUpon>frmClientes.vb</DependentUpon>
     </Compile>
     <Compile Include="frmClientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCompras.Designer.vb">
+      <DependentUpon>frmCompras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCompras.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInsumos.Designer.vb">
+      <DependentUpon>frmInsumos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmInsumos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmListaPrecios.Designer.vb">
@@ -148,6 +165,12 @@
     <EmbeddedResource Include="frmClientes.resx">
       <DependentUpon>frmClientes.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCompras.resx">
+      <DependentUpon>frmCompras.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInsumos.resx">
+      <DependentUpon>frmInsumos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmListaPrecios.resx">
       <DependentUpon>frmListaPrecios.vb</DependentUpon>
     </EmbeddedResource>
@@ -174,6 +197,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="CarboneriaDBDataSet.xsc">
+      <DependentUpon>CarboneriaDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CarboneriaDBDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CarboneriaDBDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CarboneriaDBDataSet.xss">
+      <DependentUpon>CarboneriaDBDataSet.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

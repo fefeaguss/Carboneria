@@ -24,25 +24,22 @@ Partial Class frmProductoPrecio
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmProductoPrecio))
         Me.dgvProductoPrecio = New System.Windows.Forms.DataGridView()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtPrecio = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnCerrar = New System.Windows.Forms.Button()
+        Me.cboNombreProducto = New System.Windows.Forms.ComboBox()
+        Me.cboListaPrecio = New System.Windows.Forms.ComboBox()
+        Me.btnListo = New System.Windows.Forms.PictureBox()
         Me.btnModificar = New System.Windows.Forms.PictureBox()
         Me.btnEliminar = New System.Windows.Forms.PictureBox()
         Me.btnAgregar = New System.Windows.Forms.PictureBox()
-        Me.btnListo = New System.Windows.Forms.PictureBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtCuit = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtTelefono = New System.Windows.Forms.TextBox()
-        Me.txtDireccion = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtNombre_Cliente = New System.Windows.Forms.TextBox()
-        Me.btnCerrar = New System.Windows.Forms.Button()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         CType(Me.dgvProductoPrecio, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.btnListo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnModificar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnEliminar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnAgregar, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.btnListo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvProductoPrecio
@@ -57,60 +54,12 @@ Partial Class frmProductoPrecio
         Me.dgvProductoPrecio.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvProductoPrecio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProductoPrecio.GridColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(124, Byte), Integer), CType(CType(2, Byte), Integer))
-        Me.dgvProductoPrecio.Location = New System.Drawing.Point(12, 337)
+        Me.dgvProductoPrecio.Location = New System.Drawing.Point(9, 255)
         Me.dgvProductoPrecio.Name = "dgvProductoPrecio"
         Me.dgvProductoPrecio.ReadOnly = True
         Me.dgvProductoPrecio.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProductoPrecio.Size = New System.Drawing.Size(865, 345)
+        Me.dgvProductoPrecio.Size = New System.Drawing.Size(865, 355)
         Me.dgvProductoPrecio.TabIndex = 72
-        '
-        'btnModificar
-        '
-        Me.btnModificar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnModificar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnModificar.Image = CType(resources.GetObject("btnModificar.Image"), System.Drawing.Image)
-        Me.btnModificar.Location = New System.Drawing.Point(746, 284)
-        Me.btnModificar.Name = "btnModificar"
-        Me.btnModificar.Size = New System.Drawing.Size(54, 47)
-        Me.btnModificar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnModificar.TabIndex = 92
-        Me.btnModificar.TabStop = False
-        '
-        'btnEliminar
-        '
-        Me.btnEliminar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnEliminar.Image = CType(resources.GetObject("btnEliminar.Image"), System.Drawing.Image)
-        Me.btnEliminar.Location = New System.Drawing.Point(818, 284)
-        Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(56, 47)
-        Me.btnEliminar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnEliminar.TabIndex = 91
-        Me.btnEliminar.TabStop = False
-        '
-        'btnAgregar
-        '
-        Me.btnAgregar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnAgregar.Image = CType(resources.GetObject("btnAgregar.Image"), System.Drawing.Image)
-        Me.btnAgregar.Location = New System.Drawing.Point(672, 284)
-        Me.btnAgregar.Name = "btnAgregar"
-        Me.btnAgregar.Size = New System.Drawing.Size(55, 47)
-        Me.btnAgregar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnAgregar.TabIndex = 90
-        Me.btnAgregar.TabStop = False
-        '
-        'btnListo
-        '
-        Me.btnListo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnListo.Image = CType(resources.GetObject("btnListo.Image"), System.Drawing.Image)
-        Me.btnListo.Location = New System.Drawing.Point(395, 89)
-        Me.btnListo.Name = "btnListo"
-        Me.btnListo.Size = New System.Drawing.Size(116, 27)
-        Me.btnListo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.btnListo.TabIndex = 101
-        Me.btnListo.TabStop = False
-        Me.btnListo.Visible = False
         '
         'Label1
         '
@@ -118,11 +67,11 @@ Partial Class frmProductoPrecio
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(18, 80)
+        Me.Label1.Location = New System.Drawing.Point(389, 112)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(72, 13)
+        Me.Label1.Size = New System.Drawing.Size(53, 13)
         Me.Label1.TabIndex = 100
-        Me.Label1.Text = "TELEFONO"
+        Me.Label1.Text = "PRECIO"
         '
         'Label6
         '
@@ -130,47 +79,20 @@ Partial Class frmProductoPrecio
         Me.Label6.BackColor = System.Drawing.Color.Transparent
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label6.Location = New System.Drawing.Point(215, 33)
+        Me.Label6.Location = New System.Drawing.Point(205, 111)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(36, 13)
+        Me.Label6.Size = New System.Drawing.Size(149, 13)
         Me.Label6.TabIndex = 99
-        Me.Label6.Text = "CUIT"
+        Me.Label6.Text = "NOMBRE LISTA PRECIO"
         '
-        'txtCuit
+        'txtPrecio
         '
-        Me.txtCuit.Enabled = False
-        Me.txtCuit.Location = New System.Drawing.Point(218, 49)
-        Me.txtCuit.Name = "txtCuit"
-        Me.txtCuit.Size = New System.Drawing.Size(147, 20)
-        Me.txtCuit.TabIndex = 98
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(216, 79)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(75, 13)
-        Me.Label4.TabIndex = 97
-        Me.Label4.Text = "DIRECCION"
-        '
-        'txtTelefono
-        '
-        Me.txtTelefono.Enabled = False
-        Me.txtTelefono.Location = New System.Drawing.Point(20, 96)
-        Me.txtTelefono.Name = "txtTelefono"
-        Me.txtTelefono.Size = New System.Drawing.Size(155, 20)
-        Me.txtTelefono.TabIndex = 96
-        '
-        'txtDireccion
-        '
-        Me.txtDireccion.Enabled = False
-        Me.txtDireccion.Location = New System.Drawing.Point(218, 96)
-        Me.txtDireccion.Name = "txtDireccion"
-        Me.txtDireccion.Size = New System.Drawing.Size(155, 20)
-        Me.txtDireccion.TabIndex = 95
+        Me.txtPrecio.Enabled = False
+        Me.txtPrecio.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPrecio.Location = New System.Drawing.Point(391, 128)
+        Me.txtPrecio.Name = "txtPrecio"
+        Me.txtPrecio.Size = New System.Drawing.Size(155, 29)
+        Me.txtPrecio.TabIndex = 96
         '
         'Label3
         '
@@ -178,19 +100,11 @@ Partial Class frmProductoPrecio
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(18, 33)
+        Me.Label3.Location = New System.Drawing.Point(8, 111)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(136, 13)
+        Me.Label3.Size = New System.Drawing.Size(161, 13)
         Me.Label3.TabIndex = 94
-        Me.Label3.Text = "NOMBRE Y APELLIDO"
-        '
-        'txtNombre_Cliente
-        '
-        Me.txtNombre_Cliente.Enabled = False
-        Me.txtNombre_Cliente.Location = New System.Drawing.Point(20, 49)
-        Me.txtNombre_Cliente.Name = "txtNombre_Cliente"
-        Me.txtNombre_Cliente.Size = New System.Drawing.Size(155, 20)
-        Me.txtNombre_Cliente.TabIndex = 93
+        Me.Label3.Text = "NOMBRE DEL PRODUCTO"
         '
         'btnCerrar
         '
@@ -203,30 +117,87 @@ Partial Class frmProductoPrecio
         Me.btnCerrar.Text = "X"
         Me.btnCerrar.UseVisualStyleBackColor = True
         '
-        'ComboBox1
+        'cboNombreProducto
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(204, 169)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox1.TabIndex = 114
+        Me.cboNombreProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboNombreProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboNombreProducto.FormattingEnabled = True
+        Me.cboNombreProducto.Location = New System.Drawing.Point(11, 127)
+        Me.cboNombreProducto.Name = "cboNombreProducto"
+        Me.cboNombreProducto.Size = New System.Drawing.Size(158, 32)
+        Me.cboNombreProducto.TabIndex = 114
+        '
+        'cboListaPrecio
+        '
+        Me.cboListaPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboListaPrecio.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboListaPrecio.FormattingEnabled = True
+        Me.cboListaPrecio.Location = New System.Drawing.Point(208, 127)
+        Me.cboListaPrecio.Name = "cboListaPrecio"
+        Me.cboListaPrecio.Size = New System.Drawing.Size(158, 32)
+        Me.cboListaPrecio.TabIndex = 115
+        '
+        'btnListo
+        '
+        Me.btnListo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnListo.Image = CType(resources.GetObject("btnListo.Image"), System.Drawing.Image)
+        Me.btnListo.Location = New System.Drawing.Point(568, 130)
+        Me.btnListo.Name = "btnListo"
+        Me.btnListo.Size = New System.Drawing.Size(116, 27)
+        Me.btnListo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnListo.TabIndex = 101
+        Me.btnListo.TabStop = False
+        Me.btnListo.Visible = False
+        '
+        'btnModificar
+        '
+        Me.btnModificar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnModificar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnModificar.Image = CType(resources.GetObject("btnModificar.Image"), System.Drawing.Image)
+        Me.btnModificar.Location = New System.Drawing.Point(746, 202)
+        Me.btnModificar.Name = "btnModificar"
+        Me.btnModificar.Size = New System.Drawing.Size(54, 47)
+        Me.btnModificar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnModificar.TabIndex = 92
+        Me.btnModificar.TabStop = False
+        '
+        'btnEliminar
+        '
+        Me.btnEliminar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnEliminar.Image = CType(resources.GetObject("btnEliminar.Image"), System.Drawing.Image)
+        Me.btnEliminar.Location = New System.Drawing.Point(818, 202)
+        Me.btnEliminar.Name = "btnEliminar"
+        Me.btnEliminar.Size = New System.Drawing.Size(56, 47)
+        Me.btnEliminar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnEliminar.TabIndex = 91
+        Me.btnEliminar.TabStop = False
+        '
+        'btnAgregar
+        '
+        Me.btnAgregar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAgregar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnAgregar.Image = CType(resources.GetObject("btnAgregar.Image"), System.Drawing.Image)
+        Me.btnAgregar.Location = New System.Drawing.Point(672, 202)
+        Me.btnAgregar.Name = "btnAgregar"
+        Me.btnAgregar.Size = New System.Drawing.Size(55, 47)
+        Me.btnAgregar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnAgregar.TabIndex = 90
+        Me.btnAgregar.TabStop = False
         '
         'frmProductoPrecio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(889, 716)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.ClientSize = New System.Drawing.Size(889, 635)
+        Me.Controls.Add(Me.cboListaPrecio)
+        Me.Controls.Add(Me.cboNombreProducto)
         Me.Controls.Add(Me.btnCerrar)
         Me.Controls.Add(Me.btnListo)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.txtCuit)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.txtTelefono)
-        Me.Controls.Add(Me.txtDireccion)
+        Me.Controls.Add(Me.txtPrecio)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txtNombre_Cliente)
         Me.Controls.Add(Me.btnModificar)
         Me.Controls.Add(Me.btnEliminar)
         Me.Controls.Add(Me.btnAgregar)
@@ -235,10 +206,10 @@ Partial Class frmProductoPrecio
         Me.Name = "frmProductoPrecio"
         Me.Text = "frmProductoPrecio"
         CType(Me.dgvProductoPrecio, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.btnListo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnModificar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnEliminar, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.btnAgregar, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.btnListo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -251,12 +222,9 @@ Partial Class frmProductoPrecio
     Friend WithEvents btnListo As PictureBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents txtCuit As TextBox
-    Friend WithEvents Label4 As Label
-    Friend WithEvents txtTelefono As TextBox
-    Friend WithEvents txtDireccion As TextBox
+    Friend WithEvents txtPrecio As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents txtNombre_Cliente As TextBox
     Friend WithEvents btnCerrar As Button
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboNombreProducto As ComboBox
+    Friend WithEvents cboListaPrecio As ComboBox
 End Class
