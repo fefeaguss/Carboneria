@@ -63,7 +63,7 @@
         flag_abm = 2
         wcp = Me.dgvProductos.CurrentRow.Cells(0).Value
         Me.txtNombre_Producto.Text = Me.dgvProductos.CurrentRow.Cells(1).Value.ToString
-        Me.txtPeso.Text = Me.dgvProductos.CurrentRow.Cells(2).Value.ToString
+        Me.txtPeso.Text = Me.dgvProductos.CurrentRow.Cells(2).Value.ToString.Replace(",", ".")
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
         Me.txtNombre_Producto.Focus()
@@ -112,7 +112,7 @@
         flag_abm = 3
         wcp = Me.dgvProductos.CurrentRow.Cells(0).Value
         Me.txtNombre_Producto.Text = Me.dgvProductos.CurrentRow.Cells(1).Value.ToString
-        Me.txtPeso.Text = Me.dgvProductos.CurrentRow.Cells(2).Value.ToString
+        Me.txtPeso.Text = Me.dgvProductos.CurrentRow.Cells(2).Value.ToString.Replace(",", ".")
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
         Me.btnToggleProducto.Visible = True

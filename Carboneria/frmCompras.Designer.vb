@@ -48,7 +48,19 @@ Partial Class frmCompras
         Me.cboNombreInsumo = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.dgvDetalleCompraInsumos = New System.Windows.Forms.DataGridView()
-        Me.tpDetalleCompraProductos = New System.Windows.Forms.TabPage()
+        Me.pgDetalleCompraProductos = New System.Windows.Forms.TabPage()
+        Me.txtPrecioUnitarioProducto = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtCantidadProducto = New System.Windows.Forms.TextBox()
+        Me.btnListoProducto = New System.Windows.Forms.Button()
+        Me.btnModificarProducto = New System.Windows.Forms.Button()
+        Me.btnAgregarProducto = New System.Windows.Forms.Button()
+        Me.txtIdCompraProducto = New System.Windows.Forms.TextBox()
+        Me.btnIdCompraProducto = New System.Windows.Forms.PictureBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.cboNombreProducto = New System.Windows.Forms.ComboBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.dgvDetalleCompraProducto = New System.Windows.Forms.DataGridView()
         Me.pgDetalleCompraCarbon = New System.Windows.Forms.TabPage()
         Me.txtCantidadKg = New System.Windows.Forms.TextBox()
@@ -73,7 +85,8 @@ Partial Class frmCompras
         Me.pgDetalleCompraInsumos.SuspendLayout()
         CType(Me.btnIdCompraInsumo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDetalleCompraInsumos, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tpDetalleCompraProductos.SuspendLayout()
+        Me.pgDetalleCompraProductos.SuspendLayout()
+        CType(Me.btnIdCompraProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvDetalleCompraProducto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pgDetalleCompraCarbon.SuspendLayout()
         CType(Me.btnIdCompra, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -178,14 +191,19 @@ Partial Class frmCompras
         Me.tcDetalleCompras.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tcDetalleCompras.Appearance = System.Windows.Forms.TabAppearance.Buttons
         Me.tcDetalleCompras.Controls.Add(Me.pgDetalleCompraGeneral)
         Me.tcDetalleCompras.Controls.Add(Me.pgDetalleCompraInsumos)
-        Me.tcDetalleCompras.Controls.Add(Me.tpDetalleCompraProductos)
+        Me.tcDetalleCompras.Controls.Add(Me.pgDetalleCompraProductos)
         Me.tcDetalleCompras.Controls.Add(Me.pgDetalleCompraCarbon)
+        Me.tcDetalleCompras.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
         Me.tcDetalleCompras.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tcDetalleCompras.HotTrack = True
+        Me.tcDetalleCompras.ItemSize = New System.Drawing.Size(300, 28)
         Me.tcDetalleCompras.Location = New System.Drawing.Point(12, 201)
         Me.tcDetalleCompras.Multiline = True
         Me.tcDetalleCompras.Name = "tcDetalleCompras"
+        Me.tcDetalleCompras.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.tcDetalleCompras.SelectedIndex = 0
         Me.tcDetalleCompras.Size = New System.Drawing.Size(1164, 578)
         Me.tcDetalleCompras.TabIndex = 117
@@ -193,10 +211,10 @@ Partial Class frmCompras
         'pgDetalleCompraGeneral
         '
         Me.pgDetalleCompraGeneral.Controls.Add(Me.dgvDetalleCompra)
-        Me.pgDetalleCompraGeneral.Location = New System.Drawing.Point(4, 29)
+        Me.pgDetalleCompraGeneral.Location = New System.Drawing.Point(4, 32)
         Me.pgDetalleCompraGeneral.Name = "pgDetalleCompraGeneral"
         Me.pgDetalleCompraGeneral.Padding = New System.Windows.Forms.Padding(3)
-        Me.pgDetalleCompraGeneral.Size = New System.Drawing.Size(1156, 545)
+        Me.pgDetalleCompraGeneral.Size = New System.Drawing.Size(1156, 542)
         Me.pgDetalleCompraGeneral.TabIndex = 0
         Me.pgDetalleCompraGeneral.Text = "DETALLE DE COMPRA GENERAL"
         Me.pgDetalleCompraGeneral.UseVisualStyleBackColor = True
@@ -215,11 +233,13 @@ Partial Class frmCompras
         Me.dgvDetalleCompra.Name = "dgvDetalleCompra"
         Me.dgvDetalleCompra.ReadOnly = True
         Me.dgvDetalleCompra.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDetalleCompra.Size = New System.Drawing.Size(1150, 539)
+        Me.dgvDetalleCompra.Size = New System.Drawing.Size(1150, 536)
         Me.dgvDetalleCompra.TabIndex = 91
         '
         'pgDetalleCompraInsumos
         '
+        Me.pgDetalleCompraInsumos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pgDetalleCompraInsumos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pgDetalleCompraInsumos.Controls.Add(Me.txtPrecioUnitario)
         Me.pgDetalleCompraInsumos.Controls.Add(Me.Label11)
         Me.pgDetalleCompraInsumos.Controls.Add(Me.txtCantidadInsumo)
@@ -233,10 +253,11 @@ Partial Class frmCompras
         Me.pgDetalleCompraInsumos.Controls.Add(Me.cboNombreInsumo)
         Me.pgDetalleCompraInsumos.Controls.Add(Me.Label12)
         Me.pgDetalleCompraInsumos.Controls.Add(Me.dgvDetalleCompraInsumos)
-        Me.pgDetalleCompraInsumos.Location = New System.Drawing.Point(4, 29)
+        Me.pgDetalleCompraInsumos.ForeColor = System.Drawing.SystemColors.InfoText
+        Me.pgDetalleCompraInsumos.Location = New System.Drawing.Point(4, 32)
         Me.pgDetalleCompraInsumos.Name = "pgDetalleCompraInsumos"
         Me.pgDetalleCompraInsumos.Padding = New System.Windows.Forms.Padding(3)
-        Me.pgDetalleCompraInsumos.Size = New System.Drawing.Size(1156, 545)
+        Me.pgDetalleCompraInsumos.Size = New System.Drawing.Size(1156, 542)
         Me.pgDetalleCompraInsumos.TabIndex = 1
         Me.pgDetalleCompraInsumos.Text = "DETALLE DE COMPRA INSUMOS"
         Me.pgDetalleCompraInsumos.UseVisualStyleBackColor = True
@@ -377,23 +398,160 @@ Partial Class frmCompras
         Me.dgvDetalleCompraInsumos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvDetalleCompraInsumos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDetalleCompraInsumos.GridColor = System.Drawing.Color.FromArgb(CType(CType(254, Byte), Integer), CType(CType(124, Byte), Integer), CType(CType(2, Byte), Integer))
-        Me.dgvDetalleCompraInsumos.Location = New System.Drawing.Point(6, 296)
+        Me.dgvDetalleCompraInsumos.Location = New System.Drawing.Point(6, 211)
         Me.dgvDetalleCompraInsumos.Name = "dgvDetalleCompraInsumos"
         Me.dgvDetalleCompraInsumos.ReadOnly = True
         Me.dgvDetalleCompraInsumos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDetalleCompraInsumos.Size = New System.Drawing.Size(1140, 243)
+        Me.dgvDetalleCompraInsumos.Size = New System.Drawing.Size(1138, 323)
         Me.dgvDetalleCompraInsumos.TabIndex = 92
         '
-        'tpDetalleCompraProductos
+        'pgDetalleCompraProductos
         '
-        Me.tpDetalleCompraProductos.Controls.Add(Me.dgvDetalleCompraProducto)
-        Me.tpDetalleCompraProductos.Location = New System.Drawing.Point(4, 29)
-        Me.tpDetalleCompraProductos.Name = "tpDetalleCompraProductos"
-        Me.tpDetalleCompraProductos.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpDetalleCompraProductos.Size = New System.Drawing.Size(1156, 545)
-        Me.tpDetalleCompraProductos.TabIndex = 2
-        Me.tpDetalleCompraProductos.Text = "DETALLE DE COMPRA DE PRODUCTOS"
-        Me.tpDetalleCompraProductos.UseVisualStyleBackColor = True
+        Me.pgDetalleCompraProductos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pgDetalleCompraProductos.Controls.Add(Me.txtPrecioUnitarioProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.Label13)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.txtCantidadProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.btnListoProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.btnModificarProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.btnAgregarProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.txtIdCompraProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.btnIdCompraProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.Label14)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.Label15)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.cboNombreProducto)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.Label16)
+        Me.pgDetalleCompraProductos.Controls.Add(Me.dgvDetalleCompraProducto)
+        Me.pgDetalleCompraProductos.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.pgDetalleCompraProductos.Location = New System.Drawing.Point(4, 32)
+        Me.pgDetalleCompraProductos.Name = "pgDetalleCompraProductos"
+        Me.pgDetalleCompraProductos.Padding = New System.Windows.Forms.Padding(3)
+        Me.pgDetalleCompraProductos.Size = New System.Drawing.Size(1156, 542)
+        Me.pgDetalleCompraProductos.TabIndex = 2
+        Me.pgDetalleCompraProductos.Text = "DETALLE DE COMPRA DE PRODUCTOS"
+        Me.pgDetalleCompraProductos.UseVisualStyleBackColor = True
+        '
+        'txtPrecioUnitarioProducto
+        '
+        Me.txtPrecioUnitarioProducto.Location = New System.Drawing.Point(269, 154)
+        Me.txtPrecioUnitarioProducto.Name = "txtPrecioUnitarioProducto"
+        Me.txtPrecioUnitarioProducto.Size = New System.Drawing.Size(198, 26)
+        Me.txtPrecioUnitarioProducto.TabIndex = 148
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.BackColor = System.Drawing.Color.Transparent
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label13.Location = New System.Drawing.Point(265, 136)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(117, 13)
+        Me.Label13.TabIndex = 147
+        Me.Label13.Text = "PRECIO UNITARIO"
+        '
+        'txtCantidadProducto
+        '
+        Me.txtCantidadProducto.Location = New System.Drawing.Point(267, 98)
+        Me.txtCantidadProducto.Name = "txtCantidadProducto"
+        Me.txtCantidadProducto.Size = New System.Drawing.Size(198, 26)
+        Me.txtCantidadProducto.TabIndex = 146
+        '
+        'btnListoProducto
+        '
+        Me.btnListoProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnListoProducto.Location = New System.Drawing.Point(493, 154)
+        Me.btnListoProducto.Name = "btnListoProducto"
+        Me.btnListoProducto.Size = New System.Drawing.Size(83, 28)
+        Me.btnListoProducto.TabIndex = 145
+        Me.btnListoProducto.Text = "Listo"
+        Me.btnListoProducto.UseVisualStyleBackColor = True
+        '
+        'btnModificarProducto
+        '
+        Me.btnModificarProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnModificarProducto.Location = New System.Drawing.Point(654, 127)
+        Me.btnModificarProducto.Name = "btnModificarProducto"
+        Me.btnModificarProducto.Size = New System.Drawing.Size(83, 28)
+        Me.btnModificarProducto.TabIndex = 144
+        Me.btnModificarProducto.Text = "Modificar"
+        Me.btnModificarProducto.UseVisualStyleBackColor = True
+        '
+        'btnAgregarProducto
+        '
+        Me.btnAgregarProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnAgregarProducto.Location = New System.Drawing.Point(654, 95)
+        Me.btnAgregarProducto.Name = "btnAgregarProducto"
+        Me.btnAgregarProducto.Size = New System.Drawing.Size(83, 28)
+        Me.btnAgregarProducto.TabIndex = 143
+        Me.btnAgregarProducto.Text = "Agregar"
+        Me.btnAgregarProducto.UseVisualStyleBackColor = True
+        '
+        'txtIdCompraProducto
+        '
+        Me.txtIdCompraProducto.Enabled = False
+        Me.txtIdCompraProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtIdCompraProducto.Location = New System.Drawing.Point(17, 154)
+        Me.txtIdCompraProducto.Name = "txtIdCompraProducto"
+        Me.txtIdCompraProducto.Size = New System.Drawing.Size(200, 26)
+        Me.txtIdCompraProducto.TabIndex = 142
+        '
+        'btnIdCompraProducto
+        '
+        Me.btnIdCompraProducto.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnIdCompraProducto.Image = CType(resources.GetObject("btnIdCompraProducto.Image"), System.Drawing.Image)
+        Me.btnIdCompraProducto.Location = New System.Drawing.Point(223, 154)
+        Me.btnIdCompraProducto.Name = "btnIdCompraProducto"
+        Me.btnIdCompraProducto.Size = New System.Drawing.Size(31, 26)
+        Me.btnIdCompraProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.btnIdCompraProducto.TabIndex = 141
+        Me.btnIdCompraProducto.TabStop = False
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.BackColor = System.Drawing.Color.Transparent
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label14.Location = New System.Drawing.Point(16, 137)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(116, 13)
+        Me.Label14.TabIndex = 140
+        Me.Label14.Text = "ID DE LA COMPRA"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.BackColor = System.Drawing.Color.Transparent
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label15.Location = New System.Drawing.Point(263, 80)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(70, 13)
+        Me.Label15.TabIndex = 139
+        Me.Label15.Text = "CANTIDAD"
+        '
+        'cboNombreProducto
+        '
+        Me.cboNombreProducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboNombreProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboNombreProducto.FormattingEnabled = True
+        Me.cboNombreProducto.ImeMode = System.Windows.Forms.ImeMode.NoControl
+        Me.cboNombreProducto.Location = New System.Drawing.Point(18, 96)
+        Me.cboNombreProducto.Name = "cboNombreProducto"
+        Me.cboNombreProducto.Size = New System.Drawing.Size(199, 26)
+        Me.cboNombreProducto.TabIndex = 138
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.Transparent
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label16.Location = New System.Drawing.Point(14, 79)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(154, 13)
+        Me.Label16.TabIndex = 137
+        Me.Label16.Text = "NOMBRE DE PRODUCTO"
         '
         'dgvDetalleCompraProducto
         '
@@ -411,7 +569,7 @@ Partial Class frmCompras
         Me.dgvDetalleCompraProducto.Name = "dgvDetalleCompraProducto"
         Me.dgvDetalleCompraProducto.ReadOnly = True
         Me.dgvDetalleCompraProducto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDetalleCompraProducto.Size = New System.Drawing.Size(1144, 243)
+        Me.dgvDetalleCompraProducto.Size = New System.Drawing.Size(1142, 238)
         Me.dgvDetalleCompraProducto.TabIndex = 92
         '
         'pgDetalleCompraCarbon
@@ -429,10 +587,10 @@ Partial Class frmCompras
         Me.pgDetalleCompraCarbon.Controls.Add(Me.dgvDetalleCompraCarbon)
         Me.pgDetalleCompraCarbon.Controls.Add(Me.cboTipoMovimiento)
         Me.pgDetalleCompraCarbon.Controls.Add(Me.Label6)
-        Me.pgDetalleCompraCarbon.Location = New System.Drawing.Point(4, 29)
+        Me.pgDetalleCompraCarbon.Location = New System.Drawing.Point(4, 32)
         Me.pgDetalleCompraCarbon.Name = "pgDetalleCompraCarbon"
         Me.pgDetalleCompraCarbon.Padding = New System.Windows.Forms.Padding(3)
-        Me.pgDetalleCompraCarbon.Size = New System.Drawing.Size(1156, 545)
+        Me.pgDetalleCompraCarbon.Size = New System.Drawing.Size(1156, 542)
         Me.pgDetalleCompraCarbon.TabIndex = 3
         Me.pgDetalleCompraCarbon.Text = "DETALLE DE COMPRA CARBON"
         Me.pgDetalleCompraCarbon.UseVisualStyleBackColor = True
@@ -558,7 +716,7 @@ Partial Class frmCompras
         Me.dgvDetalleCompraCarbon.Name = "dgvDetalleCompraCarbon"
         Me.dgvDetalleCompraCarbon.ReadOnly = True
         Me.dgvDetalleCompraCarbon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDetalleCompraCarbon.Size = New System.Drawing.Size(1144, 243)
+        Me.dgvDetalleCompraCarbon.Size = New System.Drawing.Size(1144, 240)
         Me.dgvDetalleCompraCarbon.TabIndex = 93
         '
         'cboTipoCompra
@@ -648,7 +806,9 @@ Partial Class frmCompras
         Me.pgDetalleCompraInsumos.PerformLayout()
         CType(Me.btnIdCompraInsumo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDetalleCompraInsumos, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tpDetalleCompraProductos.ResumeLayout(False)
+        Me.pgDetalleCompraProductos.ResumeLayout(False)
+        Me.pgDetalleCompraProductos.PerformLayout()
+        CType(Me.btnIdCompraProducto, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvDetalleCompraProducto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pgDetalleCompraCarbon.ResumeLayout(False)
         Me.pgDetalleCompraCarbon.PerformLayout()
@@ -676,7 +836,7 @@ Partial Class frmCompras
     Friend WithEvents tcDetalleCompras As TabControl
     Friend WithEvents pgDetalleCompraGeneral As TabPage
     Friend WithEvents pgDetalleCompraInsumos As TabPage
-    Friend WithEvents tpDetalleCompraProductos As TabPage
+    Friend WithEvents pgDetalleCompraProductos As TabPage
     Friend WithEvents dgvDetalleCompra As DataGridView
     Friend WithEvents dgvDetalleCompraInsumos As DataGridView
     Friend WithEvents dgvDetalleCompraProducto As DataGridView
@@ -706,4 +866,16 @@ Partial Class frmCompras
     Friend WithEvents Label12 As Label
     Friend WithEvents txtPrecioUnitario As TextBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents txtPrecioUnitarioProducto As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents txtCantidadProducto As TextBox
+    Friend WithEvents btnListoProducto As Button
+    Friend WithEvents btnModificarProducto As Button
+    Friend WithEvents btnAgregarProducto As Button
+    Friend WithEvents txtIdCompraProducto As TextBox
+    Friend WithEvents btnIdCompraProducto As PictureBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents cboNombreProducto As ComboBox
+    Friend WithEvents Label16 As Label
 End Class

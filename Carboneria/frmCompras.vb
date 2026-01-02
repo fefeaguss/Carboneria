@@ -11,6 +11,7 @@ Public Class frmCompras
         llenarDetalleCompraCarbon()
         CargarComboProveedor()
         CargarComboInsumo()
+        CargarComboProductos()
     End Sub
 
 
@@ -31,7 +32,7 @@ Public Class frmCompras
     Private Sub llenarDetalleCompraInsumos()
 
         Dim sql As String = "SELECT id_detalle as 'ID DETALLE', id_compra as 'ID COMPRA', Insumo.nombre as 'NOMBRE DE INSUMO', cantidad AS CANTIDAD, 
-                   precio_unitario AS 'PRECIO UNITARIO' FROM DetalleCompraInsumo
+                   precio_unitario AS 'PRECIO UNITARIO', subtotal as SUBTOTAL  FROM DetalleCompraInsumo
                    INNER JOIN Insumo ON Insumo.id_insumo = DetalleCompraInsumo.id_insumo "
         Dim ds As New DataSet
         Dim adp As New SqlClient.SqlDataAdapter(sql, Conexion.conexion)
@@ -102,6 +103,20 @@ Public Class frmCompras
         End If
     End Sub
 
+
+    ' Cargar ComboBox de Productos
+    Private Sub CargarComboProductos()
+        Dim sql As String = "SELECT id_producto, nombre FROM Producto "
+        Dim da As New SqlDataAdapter(sql, Conexion.conexion)
+        Dim dt As New DataTable()
+        da.Fill(dt)
+
+        ' Asignar al ComboBox
+        Me.cboNombreProducto.DataSource = dt
+        Me.cboNombreProducto.DisplayMember = "nombre"   ' lo que se muestra
+        Me.cboNombreProducto.ValueMember = "id_producto" ' el valor interno
+        Me.cboNombreProducto.SelectedIndex = -1          ' que arranque vacío
+    End Sub
     'BOTON PARA AREGAR COMPRA
     Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
         flag_abm = 1 'ALTA
@@ -160,7 +175,7 @@ Public Class frmCompras
         Me.cboProveedor.Text = Me.dgvDetalleCompra.CurrentRow.Cells(1).Value.ToString
         Me.dtpFecha.Text = Me.dgvDetalleCompra.CurrentRow.Cells(2).Value.ToString
         Me.cboTipoMovimiento.Text = Me.dgvDetalleCompra.CurrentRow.Cells(3).Value.ToString
-        Me.txtTotal.Text = Me.dgvDetalleCompra.CurrentRow.Cells(4).Value.ToString
+        Me.txtTotal.Text = Me.dgvDetalleCompra.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
         Me.dtpFecha.Focus()
@@ -290,7 +305,7 @@ Public Class frmCompras
         Me.txtIdCompra.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(1).Value.ToString
         Me.dtpFechaMovimiento.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(2).Value.ToString
         Me.cboTipoMovimiento.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(3).Value.ToString
-        Me.txtCantidadKg.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(4).Value.ToString
+        Me.txtCantidadKg.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
         HabilitarDeshabilitarControles(Me, True)
         Me.btnListoCarbon.Visible = True
         Me.dtpFechaMovimiento.Focus()
@@ -428,8 +443,8 @@ Public Class frmCompras
         wcp = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(0).Value
         Me.txtIdCompraInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(1).Value.ToString
         Me.cboNombreInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(2).Value.ToString
-        Me.txtCantidadInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(3).Value.ToString
-        Me.txtPrecioUnitario.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(4).Value.ToString
+        Me.txtCantidadInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(3).Value.ToString.Replace(",", ".")
+        Me.txtPrecioUnitario.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
         HabilitarDeshabilitarControles(Me, True)
         Me.btnListoCarbon.Visible = True
         Me.cboNombreInsumo.Focus()
@@ -497,6 +512,214 @@ Public Class frmCompras
 
         HabilitarDeshabilitarControles(Me, False)
     End Sub
+
+
+
+
+    '-------------------------------------------DETALLE DE COMPRA DE PRODUCTO-------------------------------------------------------------------------------------------------------
+
+    Private Sub btnIdCompraProducto_Click(sender As Object, e As EventArgs) Handles btnIdCompraProducto.Click
+        flag_where = 3
+        flag_dgv = 2
+        Dim frm As New frmDgvCompra
+        AddOwnedForm(frm)
+        frm.ShowDialog()
+    End Sub
+
+    Private Sub btnAgregarProducto_Click(sender As Object, e As EventArgs) Handles btnAgregarProducto.Click
+        flag_abm = 7 'ALTA
+
+        HabilitarDeshabilitarControles(Me, True)
+        Me.btnListoCarbon.Visible = True
+        Me.cboNombreProducto.Focus()
+    End Sub
+
+
+    Private Sub NuevaDetalleCompraProducto()
+
+        cmd.Connection = Conexion.conexion
+        cmd.CommandType = CommandType.Text
+
+        ' SQL para insertar detalle y actualizar stock
+        Dim sql As String =
+        "INSERT INTO DetalleCompraProducto (id_compra, id_producto, cantidad, precio_unitario) VALUES (" &
+        txtIdCompraProducto.Text & ", " &
+        cboNombreProducto.SelectedValue & ", " &
+        txtCantidadProducto.Text & ", " &
+        txtPrecioUnitarioProducto.Text & "); " &
+        "UPDATE StockProducto SET cantidad = cantidad + " &
+        txtCantidadProducto.Text & " WHERE id_producto = " &
+        cboNombreProducto.SelectedValue
+
+        cmd.CommandText = sql
+
+        ' Validaciones
+        If txtIdCompraProducto.Text <> "" AndAlso IsNumeric(txtIdCompraProducto.Text) Then
+
+            If cboNombreProducto.SelectedIndex <> -1 Then
+
+                If txtCantidadProducto.Text <> "" AndAlso IsNumeric(txtCantidadProducto.Text) Then
+
+                    If txtPrecioUnitarioProducto.Text <> "" AndAlso IsNumeric(txtPrecioUnitarioProducto.Text) Then
+
+                        Try
+                            cmd.ExecuteNonQuery()
+                            llenarDetalleCompraProducto() ' refresca el grid
+
+                            ' Reset de campos
+                            txtIdCompraProducto.Clear()
+                            cboNombreProducto.SelectedIndex = -1
+                            txtCantidadProducto.Clear()
+                            txtPrecioUnitarioProducto.Clear()
+
+
+                        Catch ex As Exception
+                            MsgBox("Error al insertar detalle de producto: " & ex.Message,
+                               MsgBoxStyle.Critical, "Error")
+                        End Try
+
+                    Else
+                        MsgBox("El campo PRECIO UNITARIO debe ser numérico y no puede estar vacío.",
+                           MsgBoxStyle.Critical, "Error")
+                        txtPrecioUnitarioProducto.Focus()
+                    End If
+
+                Else
+                    MsgBox("El campo CANTIDAD debe ser numérico y no puede estar vacío.",
+                       MsgBoxStyle.Critical, "Error")
+                    txtCantidadProducto.Focus()
+                End If
+
+            Else
+                MsgBox("Debe seleccionar un PRODUCTO.",
+                   MsgBoxStyle.Critical, "Error")
+                cboNombreProducto.Focus()
+            End If
+
+        Else
+            MsgBox("Debe ingresar un ID DE COMPRA válido.",
+               MsgBoxStyle.Critical, "Error")
+            txtIdCompraProducto.Focus()
+        End If
+
+    End Sub
+
+
+    Private Sub btnModificarProducto_Click(sender As Object, e As EventArgs) Handles btnModificarProducto.Click
+        flag_abm = 8
+        wcp = Me.dgvDetalleCompraProducto.CurrentRow.Cells(0).Value
+        Me.txtIdCompraProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(1).Value.ToString
+        Me.cboNombreProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(2).Value.ToString
+        Me.txtCantidadProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(3).Value.ToString.Replace(",", ".")
+        Me.txtPrecioUnitarioProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
+        HabilitarDeshabilitarControles(Me, True)
+        Me.btnListoCarbon.Visible = True
+        Me.cboNombreInsumo.Focus()
+    End Sub
+
+    Private Sub ModificarDetalleCompraProducto()
+
+        cmd.Connection = Conexion.conexion
+        cmd.CommandType = CommandType.Text
+
+        ' SQL: update detalle + update stock
+        Dim sql As String =
+        "UPDATE DetalleCompraProducto SET " &
+        "id_compra = " & txtIdCompraProducto.Text & ", " &
+        "id_producto = " & cboNombreProducto.SelectedValue & ", " &
+        "cantidad = " & txtCantidadProducto.Text & ", " &
+        "precio_unitario = " & txtPrecioUnitarioProducto.Text & " " &
+        "WHERE id_detalle = " & wcp & "; " &
+        "UPDATE StockProducto SET cantidad = cantidad + " &
+        txtCantidadProducto.Text & " WHERE id_producto = " &
+        cboNombreProducto.SelectedValue
+
+        cmd.CommandText = sql
+
+        ' Validaciones
+        If txtIdCompraProducto.Text <> "" AndAlso IsNumeric(txtIdCompraProducto.Text) Then
+
+            If cboNombreProducto.SelectedIndex <> -1 Then
+
+                If txtCantidadProducto.Text <> "" AndAlso IsNumeric(txtCantidadProducto.Text) Then
+
+                    If txtPrecioUnitarioProducto.Text <> "" AndAlso IsNumeric(txtPrecioUnitarioProducto.Text) Then
+
+                        Try
+                            cmd.ExecuteNonQuery()
+                            llenarDetalleCompraProducto() ' refresca grid
+
+                            ' Reset de campos
+                            txtIdCompraProducto.Clear()
+                            cboNombreProducto.SelectedIndex = -1
+                            txtCantidadProducto.Clear()
+                            txtPrecioUnitarioProducto.Clear()
+
+
+                        Catch ex As Exception
+                            MsgBox("Error al modificar detalle de producto y actualizar stock: " &
+                               ex.Message, MsgBoxStyle.Critical, "Error")
+                        End Try
+
+                    Else
+                        MsgBox("El campo PRECIO UNITARIO debe ser numérico y no puede estar vacío.",
+                           MsgBoxStyle.Critical, "Error")
+                        txtPrecioUnitarioProducto.Focus()
+                    End If
+
+                Else
+                    MsgBox("El campo CANTIDAD debe ser numérico y no puede estar vacío.",
+                       MsgBoxStyle.Critical, "Error")
+                    txtCantidadProducto.Focus()
+                End If
+
+            Else
+                MsgBox("Debe seleccionar un PRODUCTO.",
+                   MsgBoxStyle.Critical, "Error")
+                cboNombreProducto.Focus()
+            End If
+
+        Else
+            MsgBox("Debe ingresar un ID DE COMPRA válido.",
+               MsgBoxStyle.Critical, "Error")
+            txtIdCompraProducto.Focus()
+        End If
+
+    End Sub
+
+
+    Private Sub btnListoProducto_Click(sender As Object, e As EventArgs) Handles btnListoProducto.Click
+        If flag_abm = 7 Then 'INSERT
+            NuevaDetalleCompraProducto()
+        ElseIf flag_abm = 8 Then 'UPDATE
+            ModificarDetalleCompraProducto()
+        End If
+    End Sub
+    Private Sub tcDetalleCompras_DrawItem(sender As Object, e As DrawItemEventArgs) _
+    Handles tcDetalleCompras.DrawItem
+
+        Dim tab = tcDetalleCompras.TabPages(e.Index)
+        Dim rect = e.Bounds
+
+        Dim isSelected As Boolean = (e.Index = tcDetalleCompras.SelectedIndex)
+
+        Dim backColor As Color = If(isSelected, Color.Orange, Color.LightGray)
+        Dim textColor As Color = If(isSelected, Color.White, Color.Black)
+
+        Using br As New SolidBrush(backColor)
+            e.Graphics.FillRectangle(br, rect)
+        End Using
+
+        TextRenderer.DrawText(
+        e.Graphics,
+        tab.Text,
+        New Font("Segoe UI", 9, FontStyle.Bold),
+        rect,
+        textColor,
+        TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter
+    )
+    End Sub
+
 
 
 End Class

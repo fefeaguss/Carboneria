@@ -106,7 +106,7 @@ Public Class frmProductoPrecio
         wcp = Me.dgvProductoPrecio.CurrentRow.Cells(0).Value
         Me.cboNombreProducto.Text = Me.dgvProductoPrecio.CurrentRow.Cells(1).Value.ToString
         Me.cboListaPrecio.Text = Me.dgvProductoPrecio.CurrentRow.Cells(2).Value.ToString
-        Me.txtPrecio.Text = Me.dgvProductoPrecio.CurrentRow.Cells(3).Value.ToString
+        Me.txtPrecio.Text = Me.dgvProductoPrecio.CurrentRow.Cells(3).Value.ToString.Replace(",", ".")
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
         Me.cboNombreProducto.Focus()
@@ -160,7 +160,7 @@ Public Class frmProductoPrecio
         wcp = Me.dgvProductoPrecio.CurrentRow.Cells(0).Value
         Me.cboNombreProducto.Text = Me.dgvProductoPrecio.CurrentRow.Cells(1).Value.ToString
         Me.cboListaPrecio.Text = Me.dgvProductoPrecio.CurrentRow.Cells(2).Value.ToString
-        Me.txtPrecio.Text = Me.dgvProductoPrecio.CurrentRow.Cells(3).Value.ToString
+        Me.txtPrecio.Text = Me.dgvProductoPrecio.CurrentRow.Cells(3).Value.ToString.Replace(",", ".")
         Me.btnListo.Visible = True
         HabilitarDeshabilitarControles(Me, True)
         Me.cboNombreProducto.Focus()
