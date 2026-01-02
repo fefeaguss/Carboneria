@@ -60,6 +60,7 @@
         wcp = Me.dgvListaPrecios.CurrentRow.Cells(0).Value
         Me.txtNombre_Lista.Text = Me.dgvListaPrecios.CurrentRow.Cells(1).Value.ToString
         HabilitarDeshabilitarControles(Me, True)
+        Me.btnListo.Visible = True
         Me.txtNombre_Lista.Focus()
     End Sub
 

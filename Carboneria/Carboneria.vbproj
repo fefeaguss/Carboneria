@@ -79,6 +79,12 @@
       <DependentUpon>CarboneriaDBDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Conexion.vb" />
+    <Compile Include="DGV\frmDgvCompra.Designer.vb">
+      <DependentUpon>frmDgvCompra.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DGV\frmDgvCompra.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +165,9 @@
     <Compile Include="Variables.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DGV\frmDgvCompra.resx">
+      <DependentUpon>frmDgvCompra.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>

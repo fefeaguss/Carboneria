@@ -149,6 +149,7 @@ Partial Class frmMenu
         Me.Controls.Add(Me.Panel1)
         Me.Name = "frmMenu"
         Me.Text = "frmMenu"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 

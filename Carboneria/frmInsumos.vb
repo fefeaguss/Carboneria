@@ -67,6 +67,7 @@
         Me.txtNombreInsumo.Text = Me.dgvInsumos.CurrentRow.Cells(1).Value.ToString
         Me.txtUnidad.Text = Me.dgvInsumos.CurrentRow.Cells(2).Value.ToString
         HabilitarDeshabilitarControles(Me, True)
+        Me.btnListo.Visible = True
         Me.txtNombreInsumo.Focus()
     End Sub
 
@@ -114,6 +115,7 @@
         Me.txtNombreInsumo.Text = Me.dgvInsumos.CurrentRow.Cells(1).Value.ToString
         Me.txtUnidad.Text = Me.dgvInsumos.CurrentRow.Cells(2).Value.ToString
         HabilitarDeshabilitarControles(Me, True)
+        Me.btnListo.Visible = True
         Me.txtNombreInsumo.Focus()
     End Sub
 
