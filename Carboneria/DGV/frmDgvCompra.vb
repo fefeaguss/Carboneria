@@ -50,38 +50,38 @@
     End Sub
 
 
-    Private Sub dgvDetalleCompra_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvDetalleCompra.KeyDown
-        If flag_where = 1 Then
-            If e.KeyData = Keys.Enter Then
-                Dim frm As frmCompras = CType(Owner, frmCompras)
+    'Private Sub dgvDetalleCompra_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvDetalleCompra.KeyDown
+    '    If flag_where = 1 Then
+    '        If e.KeyData = Keys.Enter Then
+    '            Dim frm As frmCompras = CType(Owner, frmCompras)
 
-                ' Accedemos al TextBox dentro del TabPage pgDetalleCompraCarbon
-                Dim txtIdCompra As TextBox = CType(frm.pgDetalleCompraCarbon.Controls("txtIdCompra"), TextBox)
-                txtIdCompra.Text = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value.ToString()
+    '            ' Accedemos al TextBox dentro del TabPage pgDetalleCompraCarbon
+    '            Dim txtIdCompra As TextBox = CType(frm.pgDetalleCompraCarbon.Controls("txtIdCompra"), TextBox)
+    '            txtIdCompra.Text = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value.ToString()
 
-                Me.Close()
-            End If
+    '            Me.Close()
+    '        End If
 
-        ElseIf flag_where = 2 Then
-            If e.KeyData = Keys.Enter Then
-                Dim frm As frmCompras = CType(Owner, frmCompras)
+    '    ElseIf flag_where = 2 Then
+    '        If e.KeyData = Keys.Enter Then
+    '            Dim frm As frmCompras = CType(Owner, frmCompras)
 
-                ' Accedemos al TextBox dentro del TabPage pgDetalleCompraCarbon
-                Dim txtIdCompra As TextBox = CType(frm.pgDetalleCompraInsumos.Controls("txtIdCompraInsumo"), TextBox)
-                txtIdCompra.Text = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value.ToString()
+    '            ' Accedemos al TextBox dentro del TabPage pgDetalleCompraCarbon
+    '            Dim txtIdCompra As TextBox = CType(frm.pgDetalleCompraInsumos.Controls("txtIdCompraInsumo"), TextBox)
+    '            txtIdCompra.Text = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value.ToString()
 
-                Me.Close()
-            End If
+    '            Me.Close()
+    '        End If
 
-        ElseIf flag_where = 3 Then
-            If e.KeyData = Keys.Enter Then
-                Dim frm As frmCompras = CType(Owner, frmCompras)
-                ' Accedemos al TextBox dentro del TabPage pgDetalleCompraCarbon
-                Dim txtIdCompra As TextBox = CType(frm.pgDetalleCompraProductos.Controls("txtIdCompraProducto"), TextBox)
-                txtIdCompra.Text = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value.ToString()
-                Me.Close()
-            End If
-            flag_where = 0
-        End If
-    End Sub
+    '    ElseIf flag_where = 3 Then
+    '        If e.KeyData = Keys.Enter Then
+    '            Dim frm As frmCompras = CType(Owner, frmCompras)
+    '            ' Accedemos al TextBox dentro del TabPage pgDetalleCompraCarbon
+    '            Dim txtIdCompra As TextBox = CType(frm.pgDetalleCompraProductos.Controls("txtIdCompraProducto"), TextBox)
+    '            txtIdCompra.Text = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value.ToString()
+    '            Me.Close()
+    '        End If
+    '        flag_where = 0
+    '    End If
+    'End Sub
 End Class

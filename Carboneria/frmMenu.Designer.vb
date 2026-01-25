@@ -23,21 +23,30 @@ Partial Class frmMenu
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnFraccionado = New System.Windows.Forms.Button()
         Me.btnInsumos = New System.Windows.Forms.Button()
         Me.btnProductoPrecio = New System.Windows.Forms.Button()
         Me.btnListaPrecios = New System.Windows.Forms.Button()
-        Me.btnProductos = New System.Windows.Forms.Button()
         Me.btnCompras = New System.Windows.Forms.Button()
         Me.btnProveedores = New System.Windows.Forms.Button()
         Me.btnClientes = New System.Windows.Forms.Button()
         Me.btnVentas = New System.Windows.Forms.Button()
         Me.PanelDerecho = New System.Windows.Forms.Panel()
+        Me.btnProductos = New System.Windows.Forms.Button()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.FromArgb(CType(CType(249, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.Panel1.Controls.Add(Me.PictureBox2)
+        Me.Panel1.Controls.Add(Me.PictureBox1)
+        Me.Panel1.Controls.Add(Me.btnFraccionado)
         Me.Panel1.Controls.Add(Me.btnInsumos)
         Me.Panel1.Controls.Add(Me.btnProductoPrecio)
         Me.Panel1.Controls.Add(Me.btnListaPrecios)
@@ -52,9 +61,21 @@ Partial Class frmMenu
         Me.Panel1.Size = New System.Drawing.Size(197, 778)
         Me.Panel1.TabIndex = 0
         '
+        'btnFraccionado
+        '
+        Me.btnFraccionado.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnFraccionado.Location = New System.Drawing.Point(0, 591)
+        Me.btnFraccionado.Name = "btnFraccionado"
+        Me.btnFraccionado.Size = New System.Drawing.Size(197, 48)
+        Me.btnFraccionado.TabIndex = 8
+        Me.btnFraccionado.Text = "Fraccionado"
+        Me.btnFraccionado.UseVisualStyleBackColor = True
+        '
         'btnInsumos
         '
-        Me.btnInsumos.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnInsumos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnInsumos.Location = New System.Drawing.Point(0, 483)
         Me.btnInsumos.Name = "btnInsumos"
         Me.btnInsumos.Size = New System.Drawing.Size(197, 48)
@@ -64,7 +85,8 @@ Partial Class frmMenu
         '
         'btnProductoPrecio
         '
-        Me.btnProductoPrecio.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnProductoPrecio.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnProductoPrecio.Location = New System.Drawing.Point(0, 429)
         Me.btnProductoPrecio.Name = "btnProductoPrecio"
         Me.btnProductoPrecio.Size = New System.Drawing.Size(197, 48)
@@ -74,7 +96,8 @@ Partial Class frmMenu
         '
         'btnListaPrecios
         '
-        Me.btnListaPrecios.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnListaPrecios.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnListaPrecios.Location = New System.Drawing.Point(0, 375)
         Me.btnListaPrecios.Name = "btnListaPrecios"
         Me.btnListaPrecios.Size = New System.Drawing.Size(197, 48)
@@ -82,19 +105,10 @@ Partial Class frmMenu
         Me.btnListaPrecios.Text = "Lista de Precios"
         Me.btnListaPrecios.UseVisualStyleBackColor = True
         '
-        'btnProductos
-        '
-        Me.btnProductos.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnProductos.Location = New System.Drawing.Point(0, 267)
-        Me.btnProductos.Name = "btnProductos"
-        Me.btnProductos.Size = New System.Drawing.Size(197, 48)
-        Me.btnProductos.TabIndex = 4
-        Me.btnProductos.Text = "Productos"
-        Me.btnProductos.UseVisualStyleBackColor = True
-        '
         'btnCompras
         '
-        Me.btnCompras.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCompras.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCompras.Location = New System.Drawing.Point(0, 537)
         Me.btnCompras.Name = "btnCompras"
         Me.btnCompras.Size = New System.Drawing.Size(197, 48)
@@ -104,7 +118,8 @@ Partial Class frmMenu
         '
         'btnProveedores
         '
-        Me.btnProveedores.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnProveedores.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnProveedores.Location = New System.Drawing.Point(0, 321)
         Me.btnProveedores.Name = "btnProveedores"
         Me.btnProveedores.Size = New System.Drawing.Size(197, 48)
@@ -114,7 +129,10 @@ Partial Class frmMenu
         '
         'btnClientes
         '
-        Me.btnClientes.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClientes.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnClientes.FlatAppearance.BorderSize = 0
+        Me.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnClientes.Location = New System.Drawing.Point(0, 213)
         Me.btnClientes.Name = "btnClientes"
         Me.btnClientes.Size = New System.Drawing.Size(197, 48)
@@ -124,7 +142,8 @@ Partial Class frmMenu
         '
         'btnVentas
         '
-        Me.btnVentas.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnVentas.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnVentas.Location = New System.Drawing.Point(0, 654)
         Me.btnVentas.Name = "btnVentas"
         Me.btnVentas.Size = New System.Drawing.Size(197, 48)
@@ -140,6 +159,39 @@ Partial Class frmMenu
         Me.PanelDerecho.Size = New System.Drawing.Size(1015, 778)
         Me.PanelDerecho.TabIndex = 1
         '
+        'btnProductos
+        '
+        Me.btnProductos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnProductos.FlatAppearance.BorderSize = 0
+        Me.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnProductos.Location = New System.Drawing.Point(0, 267)
+        Me.btnProductos.Name = "btnProductos"
+        Me.btnProductos.Size = New System.Drawing.Size(197, 48)
+        Me.btnProductos.TabIndex = 4
+        Me.btnProductos.Text = "Productos"
+        Me.btnProductos.UseVisualStyleBackColor = True
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = Global.Carboneria.My.Resources.Resources.nueva_cuenta
+        Me.PictureBox2.Location = New System.Drawing.Point(3, 213)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(48, 48)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 1
+        Me.PictureBox2.TabStop = False
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Carboneria.My.Resources.Resources.carbon
+        Me.PictureBox1.Location = New System.Drawing.Point(3, 267)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(48, 48)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
+        '
         'frmMenu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -151,6 +203,8 @@ Partial Class frmMenu
         Me.Text = "frmMenu"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -165,4 +219,7 @@ Partial Class frmMenu
     Friend WithEvents PanelDerecho As Panel
     Friend WithEvents btnProductoPrecio As Button
     Friend WithEvents btnInsumos As Button
+    Friend WithEvents btnFraccionado As Button
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

@@ -1,725 +1,385 @@
-﻿Imports System.Data.SqlClient
-Imports System.Globalization
+﻿
+Imports System.Data.SqlClient
 
 Public Class frmCompras
 
 
+    Dim totalCompra As Decimal = 0
     Private Sub frmCompras_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        llenarDetalleCompra()
-        llenarDetalleCompraInsumos()
-        llenarDetalleCompraProducto()
-        llenarDetalleCompraCarbon()
-        CargarComboProveedor()
-        CargarComboInsumo()
-        CargarComboProductos()
+        CargarProveedores()
+        CargarTiposCompra()
+        ConfigurarGrilla()
+        dgvDetalle.AllowUserToAddRows = False ' Quita la fila del asterisco *
     End Sub
 
+    Private Sub CargarProveedores()
+        Try
+            conectar()
 
-    Private Sub llenarDetalleCompra()
-
-        Dim sql As String = "select compra.id_compra AS 'ID COMPRA', Proveedor.nombre AS NOMBRE, fecha as 'FECHA DE COMPRA',
-                   tipo_compra AS 'TIPO DE COMPRA', total AS TOTAL  from compra
-                   inner join Proveedor on Compra.id_proveedor = Proveedor.id_proveedor"
-        Dim ds As New DataSet
-        Dim adp As New SqlClient.SqlDataAdapter(sql, Conexion.conexion)
-
-        ds.Tables.Add("compra")
-        adp.Fill(ds.Tables("compra"))
-        Me.dgvDetalleCompra.DataSource = ds.Tables("compra")
-    End Sub
-
-
-    Private Sub llenarDetalleCompraInsumos()
-
-        Dim sql As String = "SELECT id_detalle as 'ID DETALLE', id_compra as 'ID COMPRA', Insumo.nombre as 'NOMBRE DE INSUMO', cantidad AS CANTIDAD, 
-                   precio_unitario AS 'PRECIO UNITARIO', subtotal as SUBTOTAL  FROM DetalleCompraInsumo
-                   INNER JOIN Insumo ON Insumo.id_insumo = DetalleCompraInsumo.id_insumo "
-        Dim ds As New DataSet
-        Dim adp As New SqlClient.SqlDataAdapter(sql, Conexion.conexion)
-
-        ds.Tables.Add("DetalleCompraInsumo")
-        adp.Fill(ds.Tables("DetalleCompraInsumo"))
-        Me.dgvDetalleCompraInsumos.DataSource = ds.Tables("DetalleCompraInsumo")
-    End Sub
-
-    Private Sub llenarDetalleCompraProducto()
-
-        Dim sql As String = "SELECT id_detalle AS 'ID DETALLE',id_compra as 'ID COMPRA', Producto.nombre as 'NOMBRE DE PRODUCTO', 
-                   cantidad AS CANTIDAD, precio_unitario AS 'PRECIO UNITARIO', subtotal AS SUBTOTAL
-                   FROM DetalleCompraProducto
-                   INNER JOIN Producto ON DetalleCompraProducto.id_producto = Producto.id_producto"
-        Dim ds As New DataSet
-        Dim adp As New SqlClient.SqlDataAdapter(sql, Conexion.conexion)
-
-        ds.Tables.Add("DetalleCompraProducto")
-        adp.Fill(ds.Tables("DetalleCompraProducto"))
-        Me.dgvDetalleCompraProducto.DataSource = ds.Tables("DetalleCompraProducto")
-    End Sub
-
-
-    Private Sub llenarDetalleCompraCarbon()
-
-        Dim sql As String = "SELECT id_movimiento as 'ID MOVIMIENTO',id_compra as 'ID COMPRA' , fecha as FECHA, tipo_movimiento as  'TIPO DE MOVIMIENTO', 
-                             cantidad_kg as 'CANTIDAD DE KILOS'
-                             FROM StockCarbon"
-        Dim ds As New DataSet
-        Dim adp As New SqlClient.SqlDataAdapter(sql, Conexion.conexion)
-
-        ds.Tables.Add("StockCarbon")
-        adp.Fill(ds.Tables("StockCarbon"))
-        Me.dgvDetalleCompraCarbon.DataSource = ds.Tables("StockCarbon")
-    End Sub
-
-    'cargar ComboBox de Lista de Precios
-    Private Sub CargarComboProveedor()
-        Dim sql As String = "SELECT id_proveedor, nombre FROM Proveedor"
-        Dim da As New SqlDataAdapter(sql, Conexion.conexion)
-        Dim dt As New DataTable()
-        da.Fill(dt)
-
-        If dt.Rows.Count > 0 Then
-            cboProveedor.DataSource = dt
-            cboProveedor.DisplayMember = "nombre"   ' lo que se muestra
-            cboProveedor.ValueMember = "id_proveedor"         ' el valor interno
-            cboProveedor.SelectedIndex = -1               ' arranca vacío
-        Else
-            MsgBox("No hay listas de precio cargadas.", MsgBoxStyle.Information, "Aviso")
-        End If
-    End Sub
-
-    Private Sub CargarComboInsumo()
-        Dim sql As String = "SELECT id_insumo, nombre FROM Insumo"
-        Dim da As New SqlDataAdapter(sql, Conexion.conexion)
-        Dim dt As New DataTable()
-        da.Fill(dt)
-
-        If dt.Rows.Count > 0 Then
-            cboNombreInsumo.DataSource = dt
-            cboNombreInsumo.DisplayMember = "nombre"   ' lo que se muestra
-            cboNombreInsumo.ValueMember = "id_insumo"         ' el valor interno
-            cboNombreInsumo.SelectedIndex = -1               ' arranca vacío
-        Else
-            MsgBox("No hay listas de precio cargadas.", MsgBoxStyle.Information, "Aviso")
-        End If
-    End Sub
-
-
-    ' Cargar ComboBox de Productos
-    Private Sub CargarComboProductos()
-        Dim sql As String = "SELECT id_producto, nombre FROM Producto "
-        Dim da As New SqlDataAdapter(sql, Conexion.conexion)
-        Dim dt As New DataTable()
-        da.Fill(dt)
-
-        ' Asignar al ComboBox
-        Me.cboNombreProducto.DataSource = dt
-        Me.cboNombreProducto.DisplayMember = "nombre"   ' lo que se muestra
-        Me.cboNombreProducto.ValueMember = "id_producto" ' el valor interno
-        Me.cboNombreProducto.SelectedIndex = -1          ' que arranque vacío
-    End Sub
-    'BOTON PARA AREGAR COMPRA
-    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        flag_abm = 1 'ALTA
-
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListo.Visible = True
-        Me.dtpFecha.Focus()
-    End Sub
-
-
-    Private Sub NuevaCompra()
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
-
-        ' Armamos el SQL sin id_compra (identity)
-        Dim sql As String = "INSERT INTO Compra (id_proveedor, fecha, tipo_compra, total) " &
-                        "VALUES (" & Me.cboProveedor.SelectedValue & ", '" & Me.dtpFecha.Value.ToString("yyyy-MM-dd") & "', '" &
-                        Me.cboTipoCompra.SelectedItem.ToString & "', '" & Me.txtTotal.Text & "')"
-
-        cmd.CommandText = sql
-
-        ' Validaciones
-        If Me.cboProveedor.SelectedIndex <> -1 Then
-            If Me.dtpFecha.Value <> Nothing Then
-                If Me.cboTipoCompra.SelectedIndex <> -1 Then
-                    If Me.txtTotal.Text <> "" Then
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompra() ' refresca listado de compras
-
-                            ' Limpiar campos
-                            Me.cboProveedor.SelectedIndex = -1
-                            Me.dtpFecha.Value = DateTime.Now
-                            Me.cboTipoCompra.SelectedIndex = -1
-                            Me.txtTotal.Clear()
-                            Me.btnListo.Visible = False
-                        Catch ex As Exception
-                            MsgBox(ex.ToString)
-                        End Try
-                    Else
-                        MsgBox("El campo TOTAL no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                    End If
-                Else
-                    MsgBox("Debe seleccionar un TIPO DE COMPRA.", MsgBoxStyle.Critical, "Error")
-                End If
-            Else
-                MsgBox("Debe seleccionar una FECHA.", MsgBoxStyle.Critical, "Error")
-            End If
-        Else
-            MsgBox("Debe seleccionar un PROVEEDOR.", MsgBoxStyle.Critical, "Error")
-        End If
-    End Sub
-    Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
-        flag_abm = 2
-        wcp = Me.dgvDetalleCompra.CurrentRow.Cells(0).Value
-        Me.cboProveedor.Text = Me.dgvDetalleCompra.CurrentRow.Cells(1).Value.ToString
-        Me.dtpFecha.Text = Me.dgvDetalleCompra.CurrentRow.Cells(2).Value.ToString
-        Me.cboTipoMovimiento.Text = Me.dgvDetalleCompra.CurrentRow.Cells(3).Value.ToString
-        Me.txtTotal.Text = Me.dgvDetalleCompra.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
-        Me.btnListo.Visible = True
-        HabilitarDeshabilitarControles(Me, True)
-        Me.dtpFecha.Focus()
-    End Sub
-
-
-    ' FUNCION PARA MODIFICAR COMPRA
-    Private Sub ModificarCompra()
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
-
-        ' Armamos el SQL con los campos correctos
-        Dim sql As String = "UPDATE Compra SET " &
-                        "id_proveedor = " & Me.cboProveedor.SelectedValue & ", " &
-                        "fecha = '" & Me.dtpFecha.Value.ToString("yyyy-MM-dd") & "', " &
-                        "tipo_compra = '" & Me.cboTipoMovimiento.SelectedItem.ToString & "', " &
-                        "total = '" & Me.txtTotal.Text & "' " &
-                        "WHERE id_compra = " & wcp
-
-        cmd.CommandText = sql
-
-        ' Validaciones
-        If Me.cboProveedor.SelectedIndex <> -1 Then
-            If Me.dtpFecha.Value <> Nothing Then
-                If Me.cboTipoMovimiento.SelectedIndex <> -1 Then
-                    If Me.txtTotal.Text <> "" Then
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompra() ' refresca listado de compras
-
-                            ' Reset de campos
-                            Me.cboProveedor.SelectedIndex = -1
-                            Me.dtpFecha.Value = DateTime.Now
-                            Me.cboTipoMovimiento.SelectedIndex = -1
-                            Me.txtTotal.Clear()
-                            Me.btnListo.Visible = False
-                        Catch ex As Exception
-                            MsgBox(ex.ToString)
-                        End Try
-                    Else
-                        MsgBox("El campo TOTAL no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                    End If
-                Else
-                    MsgBox("Debe seleccionar un TIPO DE COMPRA.", MsgBoxStyle.Critical, "Error")
-                End If
-            Else
-                MsgBox("Debe seleccionar una FECHA.", MsgBoxStyle.Critical, "Error")
-            End If
-        Else
-            MsgBox("Debe seleccionar un PROVEEDOR.", MsgBoxStyle.Critical, "Error")
-            Me.cboProveedor.Focus()
-        End If
-    End Sub
-    Private Sub btnListo_Click(sender As Object, e As EventArgs) Handles btnListo.Click
-        If flag_abm = 1 Then 'INSERT
-            NuevaCompra()
-        ElseIf flag_abm = 2 Then 'UPDATE
-            ModificarCompra()
-        ElseIf flag_abm = 3 Then 'DELETE
-
-        End If
-
-        HabilitarDeshabilitarControles(Me, False)
-    End Sub
-    '-----------------------------------------------pagina de detalle compra carbon-------------------------------------------------------------------------------------------------
-    Private Sub btnIdCompra_Click(sender As Object, e As EventArgs) Handles btnIdCompra.Click
-        flag_where = 1
-        Dim frm As New frmDgvCompra
-        AddOwnedForm(frm)
-        frm.ShowDialog()
-    End Sub
-
-    Private Sub btnAgregarCarbon_Click(sender As Object, e As EventArgs) Handles btnAgregarCarbon.Click
-        flag_abm = 3 'ALTA
-
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListoCarbon.Visible = True
-        Me.dtpFechaMovimiento.Focus()
-    End Sub
-
-        Private Sub NuevaMovimientoCarbon()
             cmd.Connection = Conexion.conexion
             cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT id_proveedor, nombre FROM Proveedor"
 
-            ' Armamos el SQL sin id_movimiento (identity)
-            Dim sql As String = "INSERT INTO StockCarbon (id_compra, fecha, tipo_movimiento, cantidad_kg) " &
-                            "VALUES (" & Me.txtIdCompra.Text & ", '" & Me.dtpFechaMovimiento.Value.ToString("yyyy-MM-dd") & "', '" &
-                            Me.cboTipoMovimiento.SelectedItem.ToString & "', '" & Me.txtCantidadKg.Text & "')"
+            Dim dt As New DataTable()
+            dt.Load(cmd.ExecuteReader())
 
-            cmd.CommandText = sql
+            cboProveedor.DataSource = dt
+            cboProveedor.DisplayMember = "nombre"
+            cboProveedor.ValueMember = "id_proveedor"
+            cboProveedor.SelectedIndex = -1
 
-            ' Validaciones
-            If Me.txtIdCompra.Text <> "" AndAlso IsNumeric(Me.txtIdCompra.Text) Then
-                If Me.dtpFecha.Value <> Nothing Then
-                    If Me.cboTipoMovimiento.SelectedIndex <> -1 Then
-                        If Me.txtCantidadKg.Text <> "" AndAlso IsNumeric(Me.txtCantidadKg.Text) Then
-                            Try
-                                cmd.ExecuteNonQuery()
-                                llenarDetalleCompraCarbon() ' refresca listado de movimientos de carbón
-
-                                ' Limpiar campos
-                                Me.txtIdCompra.Clear()
-                                Me.dtpFechaMovimiento.Value = DateTime.Now
-                                Me.cboTipoMovimiento.SelectedIndex = -1
-                                Me.txtCantidadKg.Clear()
-                                Me.btnListo.Visible = False
-                            Catch ex As Exception
-                                MsgBox("Error al insertar movimiento de carbón: " & ex.Message, MsgBoxStyle.Critical, "Error")
-                            End Try
-                        Else
-                            MsgBox("El campo CANTIDAD DE KILOS debe ser numérico y no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                        End If
-                    Else
-                        MsgBox("Debe seleccionar un TIPO DE MOVIMIENTO.", MsgBoxStyle.Critical, "Error")
-                    End If
-                Else
-                    MsgBox("Debe seleccionar una FECHA.", MsgBoxStyle.Critical, "Error")
-                End If
-            Else
-                MsgBox("Debe ingresar un ID DE COMPRA válido.", MsgBoxStyle.Critical, "Error")
-            End If
-        End Sub
-
-    Private Sub btnModificarCarbon_Click(sender As Object, e As EventArgs) Handles btnModificarCarbon.Click
-        flag_abm = 4
-        wcp = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(0).Value
-        Me.txtIdCompra.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(1).Value.ToString
-        Me.dtpFechaMovimiento.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(2).Value.ToString
-        Me.cboTipoMovimiento.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(3).Value.ToString
-        Me.txtCantidadKg.Text = Me.dgvDetalleCompraCarbon.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListoCarbon.Visible = True
-        Me.dtpFechaMovimiento.Focus()
+            desconectar() ' Cerramos
+        Catch ex As Exception
+            MsgBox("Error al cargar proveedores: " & ex.Message)
+            desconectar()
+        End Try
     End Sub
 
-    ' FUNCION PARA MODIFICAR MOVIMIENTO DE CARBON
-    Private Sub ModificarMovimientoCarbon()
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
+    Private Sub CargarTiposCompra()
+        ' Llenamos el combo de tipos manualmente
+        cboTipoCompra.Items.Clear()
+        cboTipoCompra.Items.Add("CARBON")
+        cboTipoCompra.Items.Add("INSUMO")
+        cboTipoCompra.Items.Add("PRODUCTO")
+    End Sub
 
-        ' Armamos el SQL con los campos correctos
-        Dim sql As String = "UPDATE StockCarbon SET " &
-                        "id_compra = " & Me.txtIdCompra.Text & ", " &
-                        "fecha = '" & Me.dtpFechaMovimiento.Value.ToString("yyyy-MM-dd") & "', " &
-                        "tipo_movimiento = '" & Me.cboTipoMovimiento.SelectedItem.ToString & "', " &
-                        "cantidad_kg = '" & Me.txtCantidadKg.Text & "' " &
-                        "WHERE id_movimiento = " & wcp
+    Private Sub ConfigurarGrilla()
+        dgvDetalle.Columns.Clear()
 
-        cmd.CommandText = sql
+        ' --- PARTE 1: HACERLO MÁS ALTO ---
+        ' La altura estándar es +/- 22. Pongámosle 40 para que sea bien alto.
+        dgvDetalle.RowTemplate.Height = 45
+        ' ---------------------------------
 
-        ' Validaciones
-        If Me.txtIdCompra.Text <> "" AndAlso IsNumeric(Me.txtIdCompra.Text) Then
-            If Me.dtpFecha.Value <> Nothing Then
-                If Me.cboTipoMovimiento.SelectedIndex <> -1 Then
-                    If Me.txtCantidadKg.Text <> "" AndAlso IsNumeric(Me.txtCantidadKg.Text) Then
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompraCarbon() ' refresca listado de movimientos
 
-                            ' Reset de campos
-                            Me.txtIdCompra.Clear()
-                            Me.dtpFechaMovimiento.Value = DateTime.Now
-                            Me.cboTipoMovimiento.SelectedIndex = -1
-                            Me.txtCantidadKg.Clear()
-                            Me.btnListo.Visible = False
-                        Catch ex As Exception
-                            MsgBox("Error al modificar movimiento de carbón: " & ex.Message, MsgBoxStyle.Critical, "Error")
-                        End Try
-                    Else
-                        MsgBox("El campo CANTIDAD DE KILOS debe ser numérico y no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                        Me.txtCantidadKg.Focus()
-                    End If
-                Else
-                    MsgBox("Debe seleccionar un TIPO DE MOVIMIENTO.", MsgBoxStyle.Critical, "Error")
-                    Me.cboTipoMovimiento.Focus()
-                End If
-            Else
-                MsgBox("Debe seleccionar una FECHA.", MsgBoxStyle.Critical, "Error")
-                Me.dtpFecha.Focus()
-            End If
+        ' 1. Columna ID (Invisible)
+        dgvDetalle.Columns.Add("colId", "ID")
+        dgvDetalle.Columns("colId").Visible = False
+
+        ' 2. y 3. Columnas Normales (Usando FillWeight para que queden parejas como pediste antes)
+        dgvDetalle.Columns.Add("colNombre", "Ítem")
+        dgvDetalle.Columns("colNombre").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        dgvDetalle.Columns("colNombre").FillWeight = 200 ' Nombre más ancho
+
+        dgvDetalle.Columns.Add("colCantidad", "Cant/Peso")
+        dgvDetalle.Columns("colCantidad").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        dgvDetalle.Columns("colCantidad").FillWeight = 100
+
+        dgvDetalle.Columns.Add("colPrecio", "Precio Unit.")
+        dgvDetalle.Columns("colPrecio").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        dgvDetalle.Columns("colPrecio").FillWeight = 100
+
+        dgvDetalle.Columns.Add("colSubtotal", "Subtotal")
+        dgvDetalle.Columns("colSubtotal").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        dgvDetalle.Columns("colSubtotal").FillWeight = 100
+
+        ' --- PARTE 2: EL BOTÓN ROJO ---
+        Dim btnEliminar As New DataGridViewButtonColumn()
+        btnEliminar.Name = "colEliminar"
+        btnEliminar.HeaderText = "Acción"
+        btnEliminar.Text = "X LIBERAR" ' Un texto más corto a veces queda mejor si es alto
+        btnEliminar.UseColumnTextForButtonValue = True
+        btnEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        btnEliminar.FillWeight = 80
+
+        ' IMPORTANTE: Cambiar el estilo a FLAT para que tome los colores
+        btnEliminar.FlatStyle = FlatStyle.Flat
+
+        ' Creamos un estilo personalizado
+        Dim estiloRojo As New DataGridViewCellStyle()
+        estiloRojo.BackColor = Color.Firebrick  ' Un rojo intenso pero profesional
+        estiloRojo.ForeColor = Color.White      ' Texto blanco para que resalte
+        estiloRojo.Font = New Font(dgvDetalle.Font, FontStyle.Bold) ' Texto en negrita
+        estiloRojo.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+        ' Aplicamos el estilo a la columna del botón
+        btnEliminar.DefaultCellStyle = estiloRojo
+        ' ------------------------------
+
+        dgvDetalle.Columns.Add(btnEliminar)
+    End Sub
+
+    Private Sub cboTipoCompra_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboTipoCompra.SelectedIndexChanged
+        ' Limpiezas generales...
+        cboItemArticulo.DataSource = Nothing
+        cboItemArticulo.Items.Clear() ' Importante limpiar items manuales
+        txtCantidad.Text = ""
+        txtPrecioUnitario.Text = ""
+        dgvDetalle.Rows.Clear()
+
+        Dim query As String = ""
+
+        Select Case cboTipoCompra.Text
+            Case "INSUMO"
+                ' Pasamos la consulta normal Y el nombre del ID real
+                CargarComboArticulos("SELECT id_insumo, nombre FROM Insumo", "id_insumo")
+
+            Case "PRODUCTO"
+                ' Pasamos la consulta normal Y el nombre del ID real
+                CargarComboArticulos("SELECT id_producto, nombre FROM Producto", "id_producto")
+
+            Case "CARBON"
+                ' Recuerda que este era manual, así que no llama a esta función
+        End Select
+    End Sub
+    ' Agregamos un segundo parámetro: nombreColumnaId
+    Private Sub CargarComboArticulos(consultaSql As String, nombreColumnaId As String)
+        Try
+
+
+
+            conectar()
+            cmd.Connection = Conexion.conexion ' Usar la variable del Module
+            cmd.CommandText = consultaSql
+
+            Dim dt As New DataTable()
+            dt.Load(cmd.ExecuteReader())
+
+            cboItemArticulo.DataSource = dt
+            cboItemArticulo.DisplayMember = "nombre"
+
+            ' AQUÍ LA MAGIA: Usamos el nombre real de la columna
+            cboItemArticulo.ValueMember = nombreColumnaId
+
+            desconectar()
+        Catch ex As Exception
+            MsgBox("Error al cargar artículos: " & ex.Message)
+            desconectar()
+        End Try
+    End Sub
+
+    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
+        '1. Validaciones básicas
+        If Not IsNumeric(txtCantidad.Text) OrElse CDec(txtCantidad.Text) <= 0 Then
+            MessageBox.Show("Ingrese una cantidad válida.")
+            Return
+        End If
+        If Not IsNumeric(txtPrecioUnitario.Text) OrElse CDec(txtPrecioUnitario.Text) <= 0 Then
+            MessageBox.Show("Ingrese un precio válido.")
+            Return
+        End If
+
+        ' --- INICIO DE LA CORRECCIÓN ---
+        Dim idArticulo As Integer = 0
+        Dim nombreArticulo As String = ""
+
+        If cboTipoCompra.Text = "CARBON" Then
+            ' Caso especial: Carbón
+            idArticulo = 0
+            nombreArticulo = "Carbón a Granel"
         Else
-            MsgBox("Debe ingresar un ID DE COMPRA válido.", MsgBoxStyle.Critical, "Error")
-            Me.txtIdCompra.Focus()
-        End If
-    End Sub
-
-    Private Sub btnListoCarbon_Click(sender As Object, e As EventArgs) Handles btnListoCarbon.Click
-        If flag_abm = 3 Then 'INSERT
-            NuevaMovimientoCarbon()
-        ElseIf flag_abm = 4 Then 'UPDATE
-            ModificarMovimientoCarbon()
-        End If
-
-        HabilitarDeshabilitarControles(Me, False)
-    End Sub
-
-
-    '-------------------------------------------DETALLE DE COMPRA DE INSUMO-------------------------------------------------------------------------------------------------------
-    Private Sub btnIdCompraInsumo_Click(sender As Object, e As EventArgs) Handles btnIdCompraInsumo.Click
-        flag_where = 2
-        flag_dgv = 1
-        Dim frm As New frmDgvCompra
-        AddOwnedForm(frm)
-        frm.ShowDialog()
-    End Sub
-
-    Private Sub btnAgregarDetalleInsumo_Click(sender As Object, e As EventArgs) Handles btnAgregarDetalleInsumo.Click
-        flag_abm = 5 'ALTA
-
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListoInsumo.Visible = True
-        Me.dtpFecha.Focus()
-    End Sub
-    Private Sub NuevaDetalleCompraInsumo()
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
-
-        ' Armamos el SQL sin id_detalle (identity)
-        Dim sql As String = "INSERT INTO DetalleCompraInsumo (id_compra, id_insumo, cantidad, precio_unitario) " &
-                        "VALUES (" & Me.txtIdCompraInsumo.Text & ", " & Me.cboNombreInsumo.SelectedValue & ", " &
-                        Me.txtCantidadInsumo.Text & ", " & Me.txtPrecioUnitario.Text & ") 
-                        update StockInsumo set cantidad = " & Me.txtCantidadInsumo.Text & " where id_insumo = " & Me.cboNombreInsumo.SelectedValue & ""
-
-        cmd.CommandText = sql
-
-        ' Validaciones
-        If Me.txtIdCompraInsumo.Text <> "" AndAlso IsNumeric(Me.txtIdCompraInsumo.Text) Then
-            If Me.cboNombreInsumo.SelectedIndex <> -1 Then
-                If Me.txtCantidadInsumo.Text <> "" AndAlso IsNumeric(Me.txtCantidadInsumo.Text) Then
-                    If Me.txtPrecioUnitario.Text <> "" AndAlso IsNumeric(Me.txtPrecioUnitario.Text) Then
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompraInsumos() ' refresca listado de insumos
-
-                            ' Reset de campos
-                            Me.txtIdCompraInsumo.Clear()
-                            Me.cboNombreInsumo.SelectedIndex = -1
-                            Me.txtCantidadInsumo.Clear()
-                            Me.txtPrecioUnitario.Clear()
-                            Me.btnListo.Visible = False
-                        Catch ex As Exception
-                            MsgBox("Error al insertar detalle de insumo: " & ex.Message, MsgBoxStyle.Critical, "Error")
-                        End Try
-                    Else
-                        MsgBox("El campo PRECIO UNITARIO debe ser numérico y no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                        Me.txtPrecioUnitario.Focus()
-                    End If
-                Else
-                    MsgBox("El campo CANTIDAD debe ser numérico y no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                    Me.txtCantidadInsumo.Focus()
-                End If
-            Else
-                MsgBox("Debe seleccionar un INSUMO.", MsgBoxStyle.Critical, "Error")
-                Me.cboNombreInsumo.Focus()
-            End If
-        Else
-            MsgBox("Debe ingresar un ID DE COMPRA válido.", MsgBoxStyle.Critical, "Error")
-            Me.txtIdCompraInsumo.Focus()
-        End If
-    End Sub
-
-
-    Private Sub btnModificarInsumo_Click(sender As Object, e As EventArgs) Handles btnModificarInsumo.Click
-        flag_abm = 6
-        wcp = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(0).Value
-        Me.txtIdCompraInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(1).Value.ToString
-        Me.cboNombreInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(2).Value.ToString
-        Me.txtCantidadInsumo.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(3).Value.ToString.Replace(",", ".")
-        Me.txtPrecioUnitario.Text = Me.dgvDetalleCompraInsumos.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListoCarbon.Visible = True
-        Me.cboNombreInsumo.Focus()
-    End Sub
-
-    Private Sub ModificarDetalleCompraInsumo()
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
-
-        ' Armamos el SQL con los campos correctos
-        Dim sql As String = "UPDATE DetalleCompraInsumo SET " &
-                        "id_compra = " & Me.txtIdCompraInsumo.Text & ", " &
-                        "id_insumo = " & Me.cboNombreInsumo.SelectedValue & ", " &
-                        "cantidad = " & Me.txtCantidadInsumo.Text & ", " &
-                        "precio_unitario = " & Me.txtPrecioUnitario.Text & " " &
-                        "WHERE id_detalle = " & wcp & "; " &
-                                                            _
-                        "UPDATE StockInsumo SET cantidad = cantidad + " & Me.txtCantidadInsumo.Text & " " &
-                        "WHERE id_insumo = " & Me.cboNombreInsumo.SelectedValue
-
-        cmd.CommandText = sql
-
-        ' Validaciones
-        If Me.txtIdCompraInsumo.Text <> "" AndAlso IsNumeric(Me.txtIdCompraInsumo.Text) Then
-            If Me.cboNombreInsumo.SelectedIndex <> -1 Then
-                If Me.txtCantidadInsumo.Text <> "" AndAlso IsNumeric(Me.txtCantidadInsumo.Text) Then
-                    If Me.txtPrecioUnitario.Text <> "" AndAlso IsNumeric(Me.txtPrecioUnitario.Text) Then
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompraInsumos() ' refresca listado de insumos
-
-                            ' Reset de campos
-                            Me.txtIdCompraInsumo.Clear()
-                            Me.cboNombreInsumo.SelectedIndex = -1
-                            Me.txtCantidadInsumo.Clear()
-                            Me.txtPrecioUnitario.Clear()
-                            Me.btnListo.Visible = False
-                        Catch ex As Exception
-                            MsgBox("Error al modificar detalle de compra y actualizar stock: " & ex.Message, MsgBoxStyle.Critical, "Error")
-                        End Try
-                    Else
-                        MsgBox("El campo PRECIO UNITARIO debe ser numérico y no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                        Me.txtPrecioUnitario.Focus()
-                    End If
-                Else
-                    MsgBox("El campo CANTIDAD debe ser numérico y no puede estar vacío.", MsgBoxStyle.Critical, "Error")
-                    Me.txtCantidadInsumo.Focus()
-                End If
-            Else
-                MsgBox("Debe seleccionar un INSUMO.", MsgBoxStyle.Critical, "Error")
-                Me.cboNombreInsumo.Focus()
-            End If
-        Else
-            MsgBox("Debe ingresar un ID DE COMPRA válido.", MsgBoxStyle.Critical, "Error")
-            Me.txtIdCompraInsumo.Focus()
-        End If
-    End Sub
-
-    Private Sub btnListoInsumo_Click(sender As Object, e As EventArgs) Handles btnListoInsumo.Click
-        If flag_abm = 5 Then 'INSERT
-            NuevaDetalleCompraInsumo()
-        ElseIf flag_abm = 6 Then 'UPDATE
-            ModificarDetalleCompraInsumo()
-        End If
-
-        HabilitarDeshabilitarControles(Me, False)
-    End Sub
-
-
-
-
-    '-------------------------------------------DETALLE DE COMPRA DE PRODUCTO-------------------------------------------------------------------------------------------------------
-
-    Private Sub btnIdCompraProducto_Click(sender As Object, e As EventArgs) Handles btnIdCompraProducto.Click
-        flag_where = 3
-        flag_dgv = 2
-        Dim frm As New frmDgvCompra
-        AddOwnedForm(frm)
-        frm.ShowDialog()
-    End Sub
-
-    Private Sub btnAgregarProducto_Click(sender As Object, e As EventArgs) Handles btnAgregarProducto.Click
-        flag_abm = 7 'ALTA
-
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListoCarbon.Visible = True
-        Me.cboNombreProducto.Focus()
-    End Sub
-
-
-    Private Sub NuevaDetalleCompraProducto()
-
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
-
-        ' SQL para insertar detalle y actualizar stock
-        Dim sql As String =
-        "INSERT INTO DetalleCompraProducto (id_compra, id_producto, cantidad, precio_unitario) VALUES (" &
-        txtIdCompraProducto.Text & ", " &
-        cboNombreProducto.SelectedValue & ", " &
-        txtCantidadProducto.Text & ", " &
-        txtPrecioUnitarioProducto.Text & "); " &
-        "UPDATE StockProducto SET cantidad = cantidad + " &
-        txtCantidadProducto.Text & " WHERE id_producto = " &
-        cboNombreProducto.SelectedValue
-
-        cmd.CommandText = sql
-
-        ' Validaciones
-        If txtIdCompraProducto.Text <> "" AndAlso IsNumeric(txtIdCompraProducto.Text) Then
-
-            If cboNombreProducto.SelectedIndex <> -1 Then
-
-                If txtCantidadProducto.Text <> "" AndAlso IsNumeric(txtCantidadProducto.Text) Then
-
-                    If txtPrecioUnitarioProducto.Text <> "" AndAlso IsNumeric(txtPrecioUnitarioProducto.Text) Then
-
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompraProducto() ' refresca el grid
-
-                            ' Reset de campos
-                            txtIdCompraProducto.Clear()
-                            cboNombreProducto.SelectedIndex = -1
-                            txtCantidadProducto.Clear()
-                            txtPrecioUnitarioProducto.Clear()
-
-
-                        Catch ex As Exception
-                            MsgBox("Error al insertar detalle de producto: " & ex.Message,
-                               MsgBoxStyle.Critical, "Error")
-                        End Try
-
-                    Else
-                        MsgBox("El campo PRECIO UNITARIO debe ser numérico y no puede estar vacío.",
-                           MsgBoxStyle.Critical, "Error")
-                        txtPrecioUnitarioProducto.Focus()
-                    End If
-
-                Else
-                    MsgBox("El campo CANTIDAD debe ser numérico y no puede estar vacío.",
-                       MsgBoxStyle.Critical, "Error")
-                    txtCantidadProducto.Focus()
-                End If
-
-            Else
-                MsgBox("Debe seleccionar un PRODUCTO.",
-                   MsgBoxStyle.Critical, "Error")
-                cboNombreProducto.Focus()
+            ' Caso Insumos o Productos: Validamos que haya seleccionado algo real
+            If cboItemArticulo.SelectedIndex = -1 Then
+                MessageBox.Show("Por favor, seleccione un artículo de la lista.")
+                Return
             End If
 
+            ' Tomamos los datos del combo (Solo si NO es carbón)
+            idArticulo = Convert.ToInt32(cboItemArticulo.SelectedValue)
+            nombreArticulo = cboItemArticulo.Text
+        End If
+        ' --- FIN DE LA LÓGICA DE SELECCIÓN ---
+
+        ' 2. Calcular valores
+        Dim cantidad As Decimal = CDec(txtCantidad.Text)
+        Dim precio As Decimal = CDec(txtPrecioUnitario.Text)
+        Dim subtotal As Decimal = cantidad * precio
+
+        ' NOTA: AQUÍ BORRÉ LAS LÍNEAS REPETIDAS QUE TE DABAN ERROR
+        ' (Dim idArticulo As Integer = ... y Dim nombreArticulo As String = ...)
+        ' Ya tenemos los valores correctos en las variables de arriba.
+
+        ' 3. Agregar a la Grilla
+        dgvDetalle.Rows.Add(idArticulo, nombreArticulo, cantidad, precio, subtotal)
+
+        ' 4. Actualizar Total General visual
+        totalCompra += subtotal
+        lblTotal.Text = "TOTAL: $" & totalCompra.ToString("N2")
+
+        ' 5. Limpiar casillas para el siguiente ítem
+        txtCantidad.Text = ""
+        txtPrecioUnitario.Text = ""
+
+        ' Volvemos el foco al combo solo si no es carbón (opcional)
+        If cboTipoCompra.Text <> "CARBON" Then
+            cboItemArticulo.Focus()
         Else
-            MsgBox("Debe ingresar un ID DE COMPRA válido.",
-               MsgBoxStyle.Critical, "Error")
-            txtIdCompraProducto.Focus()
+            txtCantidad.Focus()
+        End If
+    End Sub
+
+    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        ' 1. Validaciones
+        If dgvDetalle.Rows.Count = 0 Then
+            MsgBox("Debe agregar al menos un ítem a la compra.")
+            Return
+        End If
+        If cboProveedor.SelectedIndex = -1 Then
+            MsgBox("Seleccione un proveedor.")
+            Return
         End If
 
-    End Sub
+        Try
+            conectar()
 
+            ' INICIAR TRANSACCIÓN (Seguridad total)
+            Dim transaccion As SqlClient.SqlTransaction = Conexion.conexion.BeginTransaction()
+            cmd.Connection = Conexion.conexion
+            cmd.Transaction = transaccion
 
-    Private Sub btnModificarProducto_Click(sender As Object, e As EventArgs) Handles btnModificarProducto.Click
-        flag_abm = 8
-        wcp = Me.dgvDetalleCompraProducto.CurrentRow.Cells(0).Value
-        Me.txtIdCompraProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(1).Value.ToString
-        Me.cboNombreProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(2).Value.ToString
-        Me.txtCantidadProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(3).Value.ToString.Replace(",", ".")
-        Me.txtPrecioUnitarioProducto.Text = Me.dgvDetalleCompraProducto.CurrentRow.Cells(4).Value.ToString.Replace(",", ".")
-        HabilitarDeshabilitarControles(Me, True)
-        Me.btnListoCarbon.Visible = True
-        Me.cboNombreInsumo.Focus()
-    End Sub
+            ' A. INSERTAR CABECERA (TABLA COMPRA)
+            cmd.Parameters.Clear()
+            cmd.CommandText = "INSERT INTO Compra (id_proveedor, fecha, tipo_compra, total) " &
+                          "VALUES (@idProv, @fecha, @tipo, @total); " &
+                          "SELECT SCOPE_IDENTITY();"
 
-    Private Sub ModificarDetalleCompraProducto()
+            cmd.Parameters.AddWithValue("@idProv", cboProveedor.SelectedValue)
+            cmd.Parameters.AddWithValue("@fecha", dtpFecha.Value)
+            cmd.Parameters.AddWithValue("@tipo", cboTipoCompra.Text) ' Ojo: verifica si tu control se llama cboTipoCompra o cmbTipoCompra
+            cmd.Parameters.AddWithValue("@total", CDec(totalCompra))
 
-        cmd.Connection = Conexion.conexion
-        cmd.CommandType = CommandType.Text
+            ' Obtenemos el ID de la compra recién creada
+            Dim idCompraGenerado As Integer = Convert.ToInt32(cmd.ExecuteScalar())
 
-        ' SQL: update detalle + update stock
-        Dim sql As String =
-        "UPDATE DetalleCompraProducto SET " &
-        "id_compra = " & txtIdCompraProducto.Text & ", " &
-        "id_producto = " & cboNombreProducto.SelectedValue & ", " &
-        "cantidad = " & txtCantidadProducto.Text & ", " &
-        "precio_unitario = " & txtPrecioUnitarioProducto.Text & " " &
-        "WHERE id_detalle = " & wcp & "; " &
-        "UPDATE StockProducto SET cantidad = cantidad + " &
-        txtCantidadProducto.Text & " WHERE id_producto = " &
-        cboNombreProducto.SelectedValue
+            ' B. RECORRER GRILLA E INSERTAR DETALLES
+            For Each fila As DataGridViewRow In dgvDetalle.Rows
+                ' 1. PROTECCIÓN CONTRA LA FILA VACÍA (*)
+                ' Si es la fila nueva del final, la ignoramos y pasamos a la siguiente.
+                If fila.IsNewRow Then Continue For
 
-        cmd.CommandText = sql
+                ' 2. OBTENER EL ID (Con protección si no encuentra la columna colId)
+                Dim idItem As Integer = 0
 
-        ' Validaciones
-        If txtIdCompraProducto.Text <> "" AndAlso IsNumeric(txtIdCompraProducto.Text) Then
-
-            If cboNombreProducto.SelectedIndex <> -1 Then
-
-                If txtCantidadProducto.Text <> "" AndAlso IsNumeric(txtCantidadProducto.Text) Then
-
-                    If txtPrecioUnitarioProducto.Text <> "" AndAlso IsNumeric(txtPrecioUnitarioProducto.Text) Then
-
-                        Try
-                            cmd.ExecuteNonQuery()
-                            llenarDetalleCompraProducto() ' refresca grid
-
-                            ' Reset de campos
-                            txtIdCompraProducto.Clear()
-                            cboNombreProducto.SelectedIndex = -1
-                            txtCantidadProducto.Clear()
-                            txtPrecioUnitarioProducto.Clear()
-
-
-                        Catch ex As Exception
-                            MsgBox("Error al modificar detalle de producto y actualizar stock: " &
-                               ex.Message, MsgBoxStyle.Critical, "Error")
-                        End Try
-
-                    Else
-                        MsgBox("El campo PRECIO UNITARIO debe ser numérico y no puede estar vacío.",
-                           MsgBoxStyle.Critical, "Error")
-                        txtPrecioUnitarioProducto.Focus()
-                    End If
-
+                ' Intentamos leer por nombre "colId", si falla, leemos la columna 0 (índice)
+                If dgvDetalle.Columns.Contains("colId") Then
+                    idItem = CInt(fila.Cells("colId").Value)
                 Else
-                    MsgBox("El campo CANTIDAD debe ser numérico y no puede estar vacío.",
-                       MsgBoxStyle.Critical, "Error")
-                    txtCantidadProducto.Focus()
+                    ' Si no le cambiaste el nombre, asumimos que es la primera columna (índice 0)
+                    idItem = CInt(fila.Cells(0).Value)
                 End If
 
-            Else
-                MsgBox("Debe seleccionar un PRODUCTO.",
-                   MsgBoxStyle.Critical, "Error")
-                cboNombreProducto.Focus()
-            End If
+                Dim cantidad As Decimal = CDec(fila.Cells(2).Value) ' Verifica que Cantidad sea la columna 2
+                Dim precio As Decimal = CDec(fila.Cells(3).Value)   ' Verifica que Precio sea la columna 3
 
-        Else
-            MsgBox("Debe ingresar un ID DE COMPRA válido.",
-               MsgBoxStyle.Critical, "Error")
-            txtIdCompraProducto.Focus()
+                Select Case cboTipoCompra.Text
+                    Case "CARBON"
+                        ' --- CASO CARBÓN ---
+                        cmd.Parameters.Clear() ' Limpiamos por seguridad
+                        cmd.CommandText = "INSERT INTO StockCarbon (fecha, tipo_movimiento, cantidad_kg, id_compra) " &
+                                      "VALUES (@fecha, 'COMPRA', @cant, @idCompra)"
+
+                        cmd.Parameters.AddWithValue("@fecha", dtpFecha.Value)
+                        cmd.Parameters.AddWithValue("@cant", cantidad)
+                        cmd.Parameters.AddWithValue("@idCompra", idCompraGenerado)
+                        cmd.ExecuteNonQuery()
+
+                    Case "INSUMO"
+                        ' --- PASO 1: INSERTAR DETALLE ---
+                        cmd.Parameters.Clear() ' <--- LIMPIAR ANTES DE EMPEZAR
+                        cmd.CommandText = "INSERT INTO DetalleCompraInsumo (id_compra, id_insumo, cantidad, precio_unitario) " &
+                                      "VALUES (@idCompra, @idItem, @cant, @prec)"
+
+                        cmd.Parameters.AddWithValue("@idCompra", idCompraGenerado)
+                        cmd.Parameters.AddWithValue("@idItem", idItem)
+                        cmd.Parameters.AddWithValue("@cant", cantidad)
+                        cmd.Parameters.AddWithValue("@prec", precio)
+                        cmd.ExecuteNonQuery()
+
+                        ' --- PASO 2: ACTUALIZAR STOCK (AQUÍ ESTABA EL ERROR) ---
+                        cmd.Parameters.Clear() ' <--- ¡ESTA LÍNEA ES FUNDAMENTAL!
+
+                        cmd.CommandText = "UPDATE StockInsumo SET cantidad = cantidad + @cant WHERE id_insumo = @idItem"
+                        ' Volvemos a agregar SOLO los necesarios para el Update
+                        cmd.Parameters.AddWithValue("@cant", cantidad)
+                        cmd.Parameters.AddWithValue("@idItem", idItem)
+                        cmd.ExecuteNonQuery()
+
+                    Case "PRODUCTO"
+                        ' --- PASO 1: INSERTAR DETALLE ---
+                        cmd.Parameters.Clear() ' <--- LIMPIAR
+                        cmd.CommandText = "INSERT INTO DetalleCompraProducto (id_compra, id_producto, cantidad, precio_unitario) " &
+                                      "VALUES (@idCompra, @idItem, @cant, @prec)"
+
+                        cmd.Parameters.AddWithValue("@idCompra", idCompraGenerado)
+                        cmd.Parameters.AddWithValue("@idItem", idItem)
+                        cmd.Parameters.AddWithValue("@cant", cantidad)
+                        cmd.Parameters.AddWithValue("@prec", precio)
+                        cmd.ExecuteNonQuery()
+
+                        ' --- PASO 2: ACTUALIZAR STOCK ---
+                        cmd.Parameters.Clear() ' <--- ¡NO OLVIDAR ESTA LÍNEA!
+
+                        cmd.CommandText = "UPDATE StockProducto SET cantidad = cantidad + @cant WHERE id_producto = @idItem"
+                        cmd.Parameters.AddWithValue("@cant", cantidad)
+                        cmd.Parameters.AddWithValue("@idItem", idItem)
+                        cmd.ExecuteNonQuery()
+
+                End Select
+            Next
+
+            ' C. CONFIRMAR TODO
+            transaccion.Commit()
+            MsgBox("Compra registrada exitosamente.")
+
+            ' Limpiar formulario para nueva carga
+            dgvDetalle.Rows.Clear()
+            lblTotal.Text = "TOTAL: $0.00"
+            totalCompra = 0
+            desconectar()
+
+        Catch ex As Exception
+            ' Si algo falla, deshacemos todo
+            Try
+                If cmd.Transaction IsNot Nothing Then cmd.Transaction.Rollback()
+            Catch
+            End Try
+
+            MsgBox("Error al guardar la compra: " & ex.Message)
+            desconectar()
+        End Try
+    End Sub
+
+    Private Sub dgvDetalle_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDetalle.CellContentClick
+        ' 1. Validamos que hayan hecho clic en una fila válida (no en el encabezado)
+        If e.RowIndex < 0 Then Return
+
+        ' 2. Verificamos si el clic fue en la columna "colEliminar"
+        ' Si tu columna se llama diferente, cambia "colEliminar" por el nombre que le pusiste
+        If dgvDetalle.Columns(e.ColumnIndex).Name = "colEliminar" Then
+
+            ' A. Restar el subtotal del Total General
+            ' Asegúrate de que la columna de Subtotal sea la correcta (aquí asumo que se llama "colSubtotal" o es la 4)
+            ' Si usas nombres es más seguro: fila.Cells("colSubtotal").Value
+            Dim subtotalABorrar As Decimal = CDec(dgvDetalle.Rows(e.RowIndex).Cells("colSubtotal").Value)
+
+            totalCompra -= subtotalABorrar
+            lblTotal.Text = "TOTAL: $" & totalCompra.ToString("N2")
+
+            ' B. Borrar la fila de la grilla
+            dgvDetalle.Rows.RemoveAt(e.RowIndex)
+        End If
+    End Sub
+
+    ' Método para permitir solo números y un solo punto decimal
+    Private Sub ValidarSoloNumeros(sender As Object, e As KeyPressEventArgs)
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsDigit(e.KeyChar) AndAlso (e.KeyChar <> "."c) Then
+            e.Handled = True
         End If
 
-    End Sub
-
-
-    Private Sub btnListoProducto_Click(sender As Object, e As EventArgs) Handles btnListoProducto.Click
-        If flag_abm = 7 Then 'INSERT
-            NuevaDetalleCompraProducto()
-        ElseIf flag_abm = 8 Then 'UPDATE
-            ModificarDetalleCompraProducto()
+        ' Solo permitir un punto decimal
+        If (e.KeyChar = "."c) AndAlso ((TryCast(sender, TextBox)).Text.IndexOf("."c) > -1) Then
+            e.Handled = True
         End If
     End Sub
-    Private Sub tcDetalleCompras_DrawItem(sender As Object, e As DrawItemEventArgs) _
-    Handles tcDetalleCompras.DrawItem
 
-        Dim tab = tcDetalleCompras.TabPages(e.Index)
-        Dim rect = e.Bounds
-
-        Dim isSelected As Boolean = (e.Index = tcDetalleCompras.SelectedIndex)
-
-        Dim backColor As Color = If(isSelected, Color.Orange, Color.LightGray)
-        Dim textColor As Color = If(isSelected, Color.White, Color.Black)
-
-        Using br As New SolidBrush(backColor)
-            e.Graphics.FillRectangle(br, rect)
-        End Using
-
-        TextRenderer.DrawText(
-        e.Graphics,
-        tab.Text,
-        New Font("Segoe UI", 9, FontStyle.Bold),
-        rect,
-        textColor,
-        TextFormatFlags.HorizontalCenter Or TextFormatFlags.VerticalCenter
-    )
+    ' Asignamos el evento a los Textbox
+    Private Sub txtCantidad_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCantidad.KeyPress
+        ValidarSoloNumeros(sender, e)
     End Sub
 
+    Private Sub txtPrecio_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtPrecioUnitario.KeyPress
+        ValidarSoloNumeros(sender, e)
+    End Sub
 
 
 End Class

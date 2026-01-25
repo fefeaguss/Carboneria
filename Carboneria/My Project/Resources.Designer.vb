@@ -63,9 +63,29 @@ Namespace My.Resources
         '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property carbon() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("carbon", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Carboneria() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Carboneria", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property nueva_cuenta() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("nueva-cuenta", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

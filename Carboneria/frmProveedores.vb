@@ -31,6 +31,7 @@
 
     'FUNCION PARA GENERAR PROVEEDOR
     Private Sub NuevoProveedor()
+        conectar()
         cmd.Connection = Conexion.conexion
         cmd.CommandType = CommandType.Text
 
@@ -90,6 +91,7 @@
 
     'funcion modificar PROVEEDOR    
     Private Sub ModificarProveedor()
+        conectar()
         cmd.Connection = Conexion.conexion
         cmd.CommandType = CommandType.Text
 
@@ -157,6 +159,7 @@
 
     'FUNCION PARA ELIMINAR PROVEEDOR
     Private Sub EliminarProveedor()
+        conectar()
         cmd.Connection = Conexion.conexion
         cmd.CommandType = CommandType.Text
         Dim sql As String = "delete Proveedor where id_Proveedor = " & wcp & ""

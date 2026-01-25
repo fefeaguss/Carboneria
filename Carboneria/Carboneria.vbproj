@@ -104,6 +104,12 @@
     <Compile Include="frmCompras.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFraccionado.Designer.vb">
+      <DependentUpon>frmFraccionado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmFraccionado.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmInsumos.Designer.vb">
       <DependentUpon>frmInsumos.vb</DependentUpon>
     </Compile>
@@ -177,6 +183,9 @@
     <EmbeddedResource Include="frmCompras.resx">
       <DependentUpon>frmCompras.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmFraccionado.resx">
+      <DependentUpon>frmFraccionado.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInsumos.resx">
       <DependentUpon>frmInsumos.vb</DependentUpon>
     </EmbeddedResource>
@@ -230,6 +239,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Carboneria.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\carbon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\nueva-cuenta.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
